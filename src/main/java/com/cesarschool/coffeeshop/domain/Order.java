@@ -5,18 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalTime;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
-    private String name;
-    private String cpf;
-    private Double salary;
-    private String position;
-    private Date hiringDate;
-    private String isManager;
 
+public class Order {
+    private int idOrder;
+    private int idProduct;
+    private String clientCpf;
+    private LocalTime orderTime;
 }

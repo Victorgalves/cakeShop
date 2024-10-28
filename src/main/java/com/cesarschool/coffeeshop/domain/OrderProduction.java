@@ -1,19 +1,19 @@
 package com.cesarschool.coffeeshop.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Products {
-    private String id;
-    private String name;
-    private String description;
-    private double price;
-    private String category;
+public class OrderProduction {
+    private String employeeCpf;
+    private Order order;
+    private LocalTime orderProductionTime;
+    private String orderStatus;
 }
