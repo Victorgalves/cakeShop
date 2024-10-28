@@ -17,7 +17,7 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public Product findById(Integer id) {
-        String sql = "SELECT * FROM Products WHERE id = ?";
+        String sql = "SELECT * FROM Produtos WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
             Product produto = new Product();
             produto.setId(rs.getInt("id"));
@@ -31,7 +31,7 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        String sql = "SELECT * FROM Products";
+        String sql = "SELECT * FROM Produtos";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Product produto = new Product();
             produto.setId(rs.getInt("id"));
@@ -45,19 +45,19 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public void save(Product produto) {
-        String sql = "INSERT INTO Products (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Produtos (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, produto.getName(), produto.getPrice(), produto.getCategory(), produto.getDescription());
     }
 
     @Override
     public void update(Product produto) {
-        String sql = "UPDATE Products SET nome = ?, preco = ?, categoria = ?, descricao = ? WHERE id = ?";
+        String sql = "UPDATE Produtos SET nome = ?, preco = ?, categoria = ?, descricao = ? WHERE id = ?";
         jdbcTemplate.update(sql, produto.getName(), produto.getPrice(), produto.getCategory(), produto.getDescription(), produto.getId());
     }
 
     @Override
     public void delete(Integer id) {
-        String sql = "DELETE FROM Products WHERE id = ?";
+        String sql = "DELETE FROM Produtos WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 }
