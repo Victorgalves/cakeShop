@@ -3,6 +3,7 @@ package com.cesarschool.coffeeshop.repository;
 import com.cesarschool.coffeeshop.domain.Inventory;
 import com.cesarschool.coffeeshop.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -45,13 +46,16 @@ public class InventoryRepositoryImp implements InventoryRepository {
     @Override
     public Inventory findById(Integer id) {
         String sql = "SELECT * FROM Estoque WHERE produto_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
-            Inventory inventory = new Inventory();
-            inventory.setProductId(rs.getInt("produto_id"));
-            inventory.setQuantity(rs.getInt("quantidade_produto"));
-            inventory.setDate(rs.getDate("dt_atualizacao").toLocalDate());
-            return inventory;
-        });
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+                Inventory inventory = new Inventory();
+                inventory.setProductId(rs.getInt("produto_id"));
+                inventory.setQuantity(rs.getInt("quantidade_produto"));
+                inventory.setDate(rs.getDate("dt_atualizacao").toLocalDate());
+                return inventory;
+            });
+        }catch (EmptyResultDataAccessException e) {
+            return null;         }
     }
 
 }
