@@ -10,9 +10,11 @@ import java.util.List;
 public class ProductRepositoryImp implements ProductRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final InventoryRepositoryImp inventoryRepositoryImp;
 
-    public ProductRepositoryImp(JdbcTemplate jdbcTemplate) {
+    public ProductRepositoryImp(JdbcTemplate jdbcTemplate, InventoryRepositoryImp inventoryRepositoryImp) {
         this.jdbcTemplate = jdbcTemplate;
+        this.inventoryRepositoryImp = inventoryRepositoryImp;
     }
 
     @Override
@@ -57,7 +59,21 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public void delete(Integer id) {
+        inventoryRepositoryImp.delete(id);
         String sql = "DELETE FROM Produtos WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public int saveProductWithInventory(Product product, int initialQuantity) {
+        String insertProductSql = "INSERT INTO Produtos (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(insertProductSql, product.getName(), product.getPrice(), product.getCategory(), product.getDescription());
+
+        Integer productId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+
+        String insertInventorySql = "INSERT INTO Estoque (produto_id, dt_atualizacao, quantidade_produto) VALUES (?, CURDATE(), ?)";
+        jdbcTemplate.update(insertInventorySql, productId, initialQuantity);
+
+        return productId;
     }
 }
