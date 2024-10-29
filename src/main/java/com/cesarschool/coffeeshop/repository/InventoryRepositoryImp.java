@@ -1,17 +1,11 @@
 package com.cesarschool.coffeeshop.repository;
 
 import com.cesarschool.coffeeshop.domain.Inventory;
-import com.cesarschool.coffeeshop.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class InventoryRepositoryImp implements InventoryRepository {
