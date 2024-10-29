@@ -29,12 +29,14 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<String> addProduct(@RequestBody Product product) {
-        if (product.getName() == null || product.getPrice() == 0) {
+        if (product.getName() == null || product.getPrice() <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome e preço são obrigatórios!");
         }
-        productRepository.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Product criado com sucesso!");
+        int initialQuantity = 0;
+        productRepository.save(product, initialQuantity);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto criado com sucesso!");
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable int id) {
@@ -61,5 +63,7 @@ public class ProductController {
         productRepository.update(produtoExistente);
         return ResponseEntity.ok("Produto atualizado com sucesso.");
 }
+
+
 
 }

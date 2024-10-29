@@ -46,12 +46,6 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public void save(Product produto) {
-        String sql = "INSERT INTO Produtos (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, produto.getName(), produto.getPrice(), produto.getCategory(), produto.getDescription());
-    }
-
-    @Override
     public void update(Product produto) {
         String sql = "UPDATE Produtos SET nome = ?, preco = ?, categoria = ?, descricao = ? WHERE id = ?";
         jdbcTemplate.update(sql, produto.getName(), produto.getPrice(), produto.getCategory(), produto.getDescription(), produto.getId());
@@ -65,7 +59,7 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public int saveProductWithInventory(Product product, int initialQuantity) {
+    public void save(Product product, int initialQuantity) {
         String insertProductSql = "INSERT INTO Produtos (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertProductSql, product.getName(), product.getPrice(), product.getCategory(), product.getDescription());
 
@@ -74,6 +68,6 @@ public class ProductRepositoryImp implements ProductRepository {
         String insertInventorySql = "INSERT INTO Estoque (produto_id, dt_atualizacao, quantidade_produto) VALUES (?, CURDATE(), ?)";
         jdbcTemplate.update(insertInventorySql, productId, initialQuantity);
 
-        return productId;
+
     }
 }

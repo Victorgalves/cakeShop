@@ -7,9 +7,8 @@ import java.util.List;
 public interface ProductRepository {
         Product findById(Integer id);
         List<Product> findAll();
-        void save(Product product);
+        void save(Product product, int initialQuantity);
         void update(Product product);
         void delete(Integer id);
-        int saveProductWithInventory(Product product, int initialQuantity);
     }
 
