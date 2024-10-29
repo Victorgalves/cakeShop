@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface InventoryRepository {
 
-    Optional<Inventory> findByProductId(int productId);
+    Inventory findById(Integer id);
     int save(Inventory inventory);
     int update(Inventory inventory);
     int delete(Integer id);
