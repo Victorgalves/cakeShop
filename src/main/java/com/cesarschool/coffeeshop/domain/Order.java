@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -16,6 +17,7 @@ import java.time.LocalTime;
 public class Order {
     private int idOrder;
     private int idProduct;
+    private String employeeCpf;
     private String clientCpf;
-    private LocalTime orderTime;
+    private LocalDateTime orderTime;
 }

@@ -14,6 +14,6 @@ import java.time.LocalTime;
 public class OrderProduction {
     private String employeeCpf;
     private Order order;
-    private LocalTime orderProductionTime;
-    private String orderStatus;
+    private LocalTime productionTime;
+    private String status;
 }
