@@ -16,7 +16,6 @@ import java.time.LocalTime;
 
 public class Order {
     private int idOrder;
-    private int idProduct;
     private String employeeCpf;
     private String clientCpf;
     private LocalDateTime orderTime;

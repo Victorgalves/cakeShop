@@ -25,7 +25,6 @@ public class OrderRepositoryImp implements OrderRepository {
             Order order = new Order();
             order.setIdOrder(rs.getInt("id"));
             order.setEmployeeCpf(rs.getString("funcionario_cpf"));
-            order.setIdProduct(rs.getInt("produto_id"));
             order.setClientCpf(rs.getString("cliente_cpf"));
             order.setOrderTime(rs.getTimestamp("dataHora").toLocalDateTime());
             return order;
@@ -34,14 +33,8 @@ public class OrderRepositoryImp implements OrderRepository {
 
     @Override
     public int save(Order order) {
-        String sql = "INSERT INTO Pedidos (id, funcionario_cpf,produto_id, cliente_cpf, dataHora) VALUES (?,?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, order.getIdOrder(), order.getEmployeeCpf(),order.getIdProduct(), order.getClientCpf(), order.getOrderTime());
-    }
-
-    @Override
-    public int update(Order order) {
-        String sql = "UPDATE Pedidos SET produto_id = ?, cliente_cpf = ?, dataHora = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, order.getIdProduct(), order.getClientCpf(), order.getOrderTime(), order.getIdOrder());
+        String sql = "INSERT INTO Pedidos (id, funcionario_cpf, cliente_cpf, dataHora) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, order.getIdOrder(), order.getEmployeeCpf(),order.getClientCpf(), order.getOrderTime());
     }
 
     @Override
