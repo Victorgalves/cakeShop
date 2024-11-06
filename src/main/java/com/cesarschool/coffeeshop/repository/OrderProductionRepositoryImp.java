@@ -1,6 +1,7 @@
 package com.cesarschool.coffeeshop.repository;
 import com.cesarschool.coffeeshop.domain.OrderProduction;
 import com.cesarschool.coffeeshop.repository.OrderProductionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,8 @@ public class OrderProductionRepositoryImp implements OrderProductionRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // RowMapper para mapear a linha do resultado da consulta para o objeto OrderProduction
+
+
     private RowMapper<OrderProduction> rowMapper = (rs, rowNum) -> new OrderProduction(
             rs.getInt("idProducao"),
             rs.getString("funcionario_cpf"),

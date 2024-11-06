@@ -26,7 +26,8 @@ public class OrderRepositoryImp implements OrderRepository {
             order.setIdOrder(rs.getInt("id"));
             order.setEmployeeCpf(rs.getString("funcionario_cpf"));
             order.setClientCpf(rs.getString("cliente_cpf"));
-            order.setOrderTime(rs.getTimestamp("dataHora").toLocalDateTime());
+            java.sql.Timestamp timestamp = rs.getTimestamp("dataHora");
+            order.setOrderTime(timestamp != null ? timestamp.toLocalDateTime() : null);
             return order;
         }
     };

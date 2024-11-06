@@ -15,7 +15,6 @@ public class OrderProductionController {
 
     @Autowired
     private final OrderProductionRepository orderProductionRepository;
-
     public OrderProductionController(OrderProductionRepository orderProductionRepository) {
         this.orderProductionRepository = orderProductionRepository;
     }
