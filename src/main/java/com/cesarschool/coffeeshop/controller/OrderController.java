@@ -21,7 +21,6 @@ public class OrderController {
         this.orderRepository = orderRepository;
     }
 
-    // GET all orders
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrders() {
         List<Order> orders = orderRepository.findAll();

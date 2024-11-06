@@ -52,7 +52,6 @@ public class OrderItemsController {
             @PathVariable("orderId") int orderId,
             @RequestBody OrderItems orderItem) {
 
-        // Define o ID do pedido no item para assegurar que ele pertence ao pedido correto
         orderItem.setOrderId(orderId);
 
         int rowsAffected = orderItemsRepository.update(orderItem);

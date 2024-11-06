@@ -4,16 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderProduction {
+    private int idOrderProduction;
     private String employeeCpf;
-    private Order order;
-    private LocalTime productionTime;
+    private LocalDateTime productionTime;
     private String status;
+    private int idOrder;
+    private int idProduct;
 }
