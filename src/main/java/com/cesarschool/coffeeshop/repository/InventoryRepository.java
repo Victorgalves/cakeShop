@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface InventoryRepository {
 
     Inventory findById(Integer id);
+    List<Inventory> findAll();
     int save(Inventory inventory);
     int update(Inventory inventory);
     int delete(Integer id);

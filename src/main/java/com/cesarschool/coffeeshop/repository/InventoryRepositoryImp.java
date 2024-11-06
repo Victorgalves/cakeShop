@@ -4,7 +4,10 @@ import com.cesarschool.coffeeshop.domain.Inventory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository
@@ -19,6 +22,21 @@ public class InventoryRepositoryImp implements InventoryRepository {
                 "INSERT INTO Estoque (produto_id, dt_atualizacao, quantidade_produto) VALUES (?, ?, ?)",
                 inventory.getProductId(), inventory.getDate(), inventory.getQuantity()
         );
+    }
+
+    @Override
+    public List<Inventory> findAll() {
+        String sql = "SELECT * FROM Estoque";
+        return jdbcTemplate.query(sql, new RowMapper<Inventory>() {
+            @Override
+            public Inventory mapRow(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+                Inventory inventory = new Inventory();
+                inventory.setProductId(rs.getInt("produto_id"));
+                inventory.setQuantity(rs.getInt("quantidade_produto"));
+                inventory.setDate(rs.getDate("dt_atualizacao").toLocalDate());
+                return inventory;
+            }
+        });
     }
 
     @Override
@@ -53,3 +71,5 @@ public class InventoryRepositoryImp implements InventoryRepository {
     }
 
 }
+
+
