@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,9 @@ public class OrderRepositoryImp implements OrderRepository {
 
     @Override
     public int save(Order order) {
+        if (order.getOrderTime() == null) {
+            order.setOrderTime(LocalDateTime.now());
+        }
         String sql = "INSERT INTO Pedidos (id, funcionario_cpf, cliente_cpf, dataHora) VALUES (?, ?, ?, ?)";
         return jdbcTemplate.update(sql, order.getIdOrder(), order.getEmployeeCpf(),order.getClientCpf(), order.getOrderTime());
     }
