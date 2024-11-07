@@ -42,12 +42,9 @@ public class OrderItemsRepositoryImp implements OrderItemsRepository {
 
     @Override
     public int save(OrderItems orderItem) {
-        // Obtenha o preço do produto e configure o preço no pedido
         String getPriceSql = "SELECT preco FROM Produtos WHERE id = ?";
         Double price = jdbcTemplate.queryForObject(getPriceSql, new Object[]{orderItem.getIdProduct()}, Double.class);
         orderItem.setPrice(price);
-
-        // Insere o item no pedido
         String insertSql = "INSERT INTO ItensPedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)";
         int rowsAffected = jdbcTemplate.update(insertSql, orderItem.getOrderId(), orderItem.getIdProduct(), orderItem.getQuantity(), orderItem.getPrice());
 
@@ -59,9 +56,12 @@ public class OrderItemsRepositoryImp implements OrderItemsRepository {
 
     @Override
     public int update(OrderItems orderItem) {
-        String sql = "UPDATE ItensPedido SET quantidade = ?, preco_unitario = ? WHERE id = ? AND pedido_id = ?";
-        return jdbcTemplate.update(sql, orderItem.getQuantity(), orderItem.getPrice(), orderItem.getIdOrderItems(), orderItem.getOrderId());
+        String sql = "UPDATE ItensPedido SET quantidade = ? " +
+                "WHERE pedido_id = ? AND produto_id = ?";
+        return jdbcTemplate.update(sql, orderItem.getQuantity(),
+                orderItem.getOrderId(), orderItem.getIdProduct());
     }
+
 
 
     @Override

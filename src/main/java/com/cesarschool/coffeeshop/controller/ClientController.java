@@ -49,21 +49,22 @@ public class ClientController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<String> updateClient(@PathVariable String cpf, @RequestBody Client Client) {
+    public ResponseEntity<String> updateClient(@PathVariable String cpf, @RequestBody Client client) {
         if (!ClientRepository.existsByCpf(cpf)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CPF não encontrado!");
         }
         Client existingClient = ClientRepository.findByCpf(cpf);
 
-        existingClient.setCpf(Client.getCpf());
-        existingClient.setName(Client.getName());
-        existingClient.setEmail(Client.getEmail());
-        existingClient.setPhone(Client.getPhone());
-        existingClient.setStreet(Client.getStreet());
-        existingClient.setDistrict(Client.getDistrict());
-        existingClient.setNumber(Client.getNumber());
+        existingClient.setName(client.getName());
+        existingClient.setEmail(client.getEmail());
+        existingClient.setPhone(client.getPhone());
+        existingClient.setStreet(client.getStreet());
+        existingClient.setDistrict(client.getDistrict());
+        existingClient.setNumber(client.getNumber());
+
         ClientRepository.update(existingClient);
-        return ResponseEntity.ok("Funcionário atualizado com sucesso!");
+
+        return ResponseEntity.ok("Cliente atualizado com sucesso!");
     }
 
     @DeleteMapping("/{cpf}")

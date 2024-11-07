@@ -23,10 +23,11 @@ public  class ClientRepositoryImp implements ClientRepository {
     @Override
     public int update(Client client) {
         return jdbcTemplate.update(
-                "UPDATE Cliente SET cpf = ?, nome = ?, email = ?, telefone = ?, rua=?, bairro=?, numero=? WHERE cpf = ?",
-                client.getCpf(), client.getName(),client.getEmail(), client.getPhone(), client.getStreet(), client.getDistrict(), client.getNumber()
+                "UPDATE Cliente SET nome = ?, email = ?, telefone = ?, rua = ?, bairro = ?, numero = ? WHERE cpf = ?",
+                 client.getName(), client.getEmail(), client.getPhone(), client.getStreet(), client.getDistrict(), client.getNumber(), client.getCpf()
         );
     }
+
 
     @Override
     public int delete(String cpf) {

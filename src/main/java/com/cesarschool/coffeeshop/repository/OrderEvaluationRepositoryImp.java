@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Repository
 public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
@@ -15,6 +18,9 @@ public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
 
     @Override
     public int save(OrderEvaluation orderEvaluation) {
+        if (orderEvaluation.getDate() == null) {
+            orderEvaluation.setDate(LocalDate.now());
+        }
         String sql = "INSERT INTO Avaliacao (id, data, nota, mensagem, pedido_id, cliente_cpf) VALUES (?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, orderEvaluation.getId(), orderEvaluation.getDate(), orderEvaluation.getProductRating(), orderEvaluation.getProductReview(), orderEvaluation.getIdOrder(), orderEvaluation.getClientCpf()
         );
@@ -38,8 +44,9 @@ public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
     }
 
     @Override
-    public OrderEvaluation find(Integer idOrder, String clientCpf) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Avaliacao WHERE pedido_id = ? AND cliente_cpf =?", new Object[]{idOrder, clientCpf}, (rs, rowNum) -> {
+    public OrderEvaluation findByOrderId(Integer idOrder) {
+        String sql = "SELECT * FROM Avaliacao WHERE pedido_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{idOrder}, (rs, rowNum) -> {
             OrderEvaluation orderEvaluation = new OrderEvaluation();
             orderEvaluation.setDate(rs.getDate("data").toLocalDate());
             orderEvaluation.setProductRating(rs.getInt("nota"));
@@ -49,4 +56,5 @@ public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
             return orderEvaluation;
         });
     }
+
 }

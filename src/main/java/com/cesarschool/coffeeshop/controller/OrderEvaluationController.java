@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 
-@RequestMapping("/orderevaluation")
+@RequestMapping("/orderEvaluation")
 
 public class OrderEvaluationController {
 
     @Autowired
     private OrderEvaluationRepository orderEvaluationRepository;
 
-    @PostMapping("/{idOrder}")
+    @PostMapping
     public ResponseEntity<String> addOrderEvaluation(@RequestBody OrderEvaluation orderEvaluation) {
         orderEvaluationRepository.save(orderEvaluation);
         return ResponseEntity.status(HttpStatus.CREATED).body("Evaluation added successfully!");
     }
 
-    @GetMapping("/{idOrder}/{clientCpf}")
-    public ResponseEntity<String> getIdOrderEvaluation(@PathVariable Integer idOrder, @PathVariable String clientCpf) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.find(idOrder, clientCpf);
+    @GetMapping("/{idOrder}")
+    public ResponseEntity<String> getIdOrderEvaluation(@PathVariable Integer idOrder) {
+        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
 
         if (orderEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
@@ -36,9 +36,10 @@ public class OrderEvaluationController {
     }
 
 
-    @PutMapping("/{idOrder}/{clientCpf}")
-    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer idOrder, @PathVariable String clientCpf) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.find(idOrder, clientCpf);
+
+    @PutMapping("/{idOrder}")
+    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer idOrder) {
+        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
         if (orderEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
         }
@@ -53,7 +54,7 @@ public class OrderEvaluationController {
 
     @DeleteMapping("/{idOrder}/{clientCpf}")
     public ResponseEntity<String> deleteOrderEvaluation(@PathVariable Integer idOrder, @PathVariable String clientCpf) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.find(idOrder, clientCpf);
+        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
         if (orderEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
         }

@@ -31,7 +31,7 @@ public class OrderItemsController {
         return new ResponseEntity<>(orderItems, HttpStatus.OK);
     }
 
-    @GetMapping("/order/{idOrder}")
+    @GetMapping("/{idOrder}")
     public ResponseEntity<List<OrderItems>> getOrderItemsByOrderId(@PathVariable int idOrder) {
         List<OrderItems> items = orderItemsRepository.findByOrderId(idOrder);
         if (items.isEmpty()) {
@@ -56,20 +56,22 @@ public class OrderItemsController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao criar item de pedido.");
     }
-
     @PutMapping("{orderId}")
     public ResponseEntity<String> updateOrderItem(
             @PathVariable("orderId") int orderId,
             @RequestBody OrderItems orderItem) {
 
+        // Definindo o orderId da requisição no objeto orderItem
         orderItem.setOrderId(orderId);
 
+        // Verificando se o item existe
         int rowsAffected = orderItemsRepository.update(orderItem);
         if (rowsAffected > 0) {
             return ResponseEntity.ok("Item de pedido atualizado com sucesso!");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item de pedido não encontrado.");
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrderItem(@PathVariable int id) {
