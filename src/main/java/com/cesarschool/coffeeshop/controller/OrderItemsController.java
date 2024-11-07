@@ -44,7 +44,6 @@ public class OrderItemsController {
     public ResponseEntity<String> addOrderItem(@RequestBody OrderItems orderItem) {
         int rowsAffected = orderItemsRepository.save(orderItem);
         if (rowsAffected > 0) {
-            // Cria o registro em OrderProduction com o status "pendente"
             OrderProduction orderProduction = new OrderProduction();
             orderProduction.setIdOrder(orderItem.getOrderId());
             orderProduction.setIdProduct(orderItem.getIdProduct());

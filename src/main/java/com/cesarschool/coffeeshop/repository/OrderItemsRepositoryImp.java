@@ -51,16 +51,6 @@ public class OrderItemsRepositoryImp implements OrderItemsRepository {
         String insertSql = "INSERT INTO ItensPedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)";
         int rowsAffected = jdbcTemplate.update(insertSql, orderItem.getOrderId(), orderItem.getIdProduct(), orderItem.getQuantity(), orderItem.getPrice());
 
-        // Se o item do pedido for inserido com sucesso, insira automaticamente na tabela Producao_pedido
-        if (rowsAffected > 0) {
-            OrderProduction orderProduction = new OrderProduction();
-            orderProduction.setIdOrder(orderItem.getOrderId());
-            orderProduction.setIdProduct(orderItem.getIdProduct());
-            orderProduction.setStatus("Pendente");  // Define o status inicial como "pendente"
-
-            // Use o repositório de produção para salvar o novo registro na tabela Producao_pedido
-            orderProductionRepository.save(orderProduction);
-        }
 
         return rowsAffected;
     }
