@@ -1,0 +1,95 @@
+/* src/components/Dashboard/Dashboard.css */
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Garante que a altura da tela seja ocupada completamente */
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centraliza o conteúdo horizontalmente */
+    justify-content: flex-start;
+    width: 100%;  /* Garante que o conteúdo ocupe toda a largura disponível */
+    padding: 40px;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2C3E50;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* Ajuste automático do número de colunas */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;  /* Limita a largura máxima dos cards */
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #2C3E50;
+}
+
+.dashboard-card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #34495E;
+}
+
+.dashboard-card small {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Adicionando uma área para gráfico e outras seções futuras */
+.dashboard-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.dashboard-sections .section-card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 20px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste para telas menores */
+    }
+
+    .dashboard-sections {
+        grid-template-columns: 1fr; /* Coloca tudo em uma coluna em telas pequenas */
+    }
+}

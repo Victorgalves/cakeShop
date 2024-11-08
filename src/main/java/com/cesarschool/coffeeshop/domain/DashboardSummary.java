@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class DashboardSummary {
     private double totalRevenue;
     private ProductSummary topSellingProduct;
     private ClientSummary topClient;
+    private List<SalesData> salesData;
 
     @Getter
     @Setter
@@ -32,5 +35,14 @@ public class DashboardSummary {
     public static class ClientSummary {
         private String name;
         private int totalPurchases;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SalesData {
+        private String date;
+        private double sales;
     }
 }

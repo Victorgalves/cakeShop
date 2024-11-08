@@ -1,0 +1,60 @@
+/* src/components/Menu/Menu.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Para título à esquerda e links à direita */
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 10px 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar-title {
+    font-size: 1.8rem;
+    color: #ECF0F1;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    flex-grow: 1; /* Faz o título crescer e ocupar o espaço disponível */
+}
+
+.navbar-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    justify-content: center; /* Centraliza os itens */
+}
+
+.navbar-item {
+    margin-right: 20px;
+}
+
+.navbar-item a {
+    color: #ECF0F1;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+    color: #16A085; /* cor de hover */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-item {
+        margin: 10px 0;
+    }
+}

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DashboardRepositoryImp implements DashboardRepository {
 
@@ -15,9 +17,13 @@ public class DashboardRepositoryImp implements DashboardRepository {
 
     @Override
     public DashboardSummary getDashboardSummary() {
+        // Total de clientes
         int totalClients = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Cliente", Integer.class);
+
+        // Total de pedidos
         int totalOrders = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Pedidos", Integer.class);
 
+        // Receita total
         Double totalRevenue = jdbcTemplate.queryForObject("SELECT SUM(preco_unitario * quantidade) FROM ItensPedido", Double.class);
         if (totalRevenue == null) totalRevenue = 0.0;
 
@@ -38,6 +44,20 @@ public class DashboardRepositoryImp implements DashboardRepository {
                         "GROUP BY c.nome ORDER BY totalPurchases DESC LIMIT 1",
                 (rs, rowNum) -> new ClientSummary(rs.getString("nome"), rs.getInt("totalPurchases"))
         );
-        return new DashboardSummary(totalClients, totalOrders, totalRevenue, topSellingProduct, topClient);
+
+        // Obter salesData (últimos 30 dias de vendas)
+        List<DashboardSummary.SalesData> salesData = jdbcTemplate.query(
+                "SELECT DATE(p.dataHora) as date, SUM(i.preco_unitario * i.quantidade) as sales " +
+                        "FROM Pedidos p " +
+                        "JOIN ItensPedido i ON p.id = i.pedido_id " +
+                        "WHERE p.dataHora >= CURDATE() - INTERVAL 30 DAY " +
+                        "GROUP BY DATE(p.dataHora) " +
+                        "ORDER BY DATE(p.dataHora) ASC",
+                (rs, rowNum) -> new DashboardSummary.SalesData(rs.getString("date"), rs.getDouble("sales"))
+        );
+
+        // Criar e retornar o objeto DashboardSummary com todos os dados
+        return new DashboardSummary(totalClients, totalOrders, totalRevenue, topSellingProduct, topClient, salesData);
     }
+
 }
