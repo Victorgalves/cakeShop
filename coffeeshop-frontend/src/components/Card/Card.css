@@ -1,4 +1,4 @@
-.dashboard-card {
+.card {
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
@@ -9,17 +9,17 @@
     min-width: 200px;
 }
 
-.dashboard-card h3 {
+.card h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
-.dashboard-card p {
+.card p {
     font-size: 1.2rem;
     font-weight: bold;
 }
 
-.dashboard-card small {
+.card small {
     display: block;
     margin-top: 10px;
     font-size: 0.9rem;
@@ -28,7 +28,7 @@
 
 
 /* src/components/Dashboard/Dashboard.css */
-.dashboard-chart {
+.chart {
     margin-top: 40px;
     width: 100%;
     max-width: 1000px;

@@ -1,9 +1,9 @@
 // src/components/Dashboard/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { getDashboardData } from '../../services/DashboardService';
-import DashboardCard from './DashboardCard';
-import Menu from '../Menu/Menu';
-import SalesChart from '../SalesChart/SalesChart';  // Importe o componente do gráfico
+import Card from '../../components/Card/Card';
+import Menu from '../../components/Menu/Menu';
+import SalesChart from '../../components/SalesChart/SalesChart';  // Importe o componente do gráfico
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -35,24 +35,24 @@ const Dashboard = () => {
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
                 <div className="dashboard-cards">
-                    <DashboardCard
+                    <Card
                         title="Total de Clientes"
                         value={dashboardData.totalClients}
                     />
-                    <DashboardCard
+                    <Card
                         title="Total de Pedidos"
                         value={dashboardData.totalOrders}
                     />
-                    <DashboardCard
+                    <Card
                         title="Total de Receita"
                         value={`R$ ${dashboardData.totalRevenue.toFixed(2)}`}
                     />
-                    <DashboardCard
+                    <Card
                         title="Produto Mais Vendido"
                         value={dashboardData.topSellingProduct.name}
                         description={`Vendidos: ${dashboardData.topSellingProduct.totalSales}`}
                     />
-                    <DashboardCard
+                    <Card
                         title="Cliente Mais Frequente"
                         value={dashboardData.topClient.name}
                         description={`Compras: ${dashboardData.topClient.totalPurchases}`}
