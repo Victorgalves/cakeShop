@@ -1,0 +1,204 @@
+
+/* Adiciona o estilo para o campo de busca */
+.search-bar {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.client-list-container {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    height: calc(100vh - 100px);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+    margin: 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Container dos cards de clientes */
+.client-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Cada card de cliente */
+.client-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    overflow: hidden;
+    width: calc(25% - 20px);  /* Garante 4 cartões por linha (25% da largura) */
+    min-width: 220px;
+    box-sizing: border-box;
+}
+
+.client-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.client-card h3 {
+    font-size: 20px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.client-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.client-card .client-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.client-card .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.client-card button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 1200px) {
+    .client-card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .client-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .client-card {
+        width: 100%;
+    }
+}
+
+
+/* Modal */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.modal-content p {
+    font-size: 18px;
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+

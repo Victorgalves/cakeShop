@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+// src/Paginas/Home/Home.js
+import React from 'react';
 import Card from "../../components/Card/Card";
 import Menu from "../../components/Menu/Menu";
+import { Link } from "react-router-dom";
 import "./Home.css";
-import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
@@ -11,11 +12,11 @@ const Home = () => {
             <div className="home-content">
                 <div className="home-cards">
                     <Card title="Pedidos" />
-                    <Card title="Clientes" />
+                    <Link to="/clients"><Card title="Clientes" /></Link>
                     <Card title="Funcionários" />
                     <Card title="Estoque" />
                     <Card title="Produção" />
-                   <Link to="/dashboard" ><Card title="Dashboard" /></Link>
+                    <Link to="/dashboard"><Card title="Dashboard" /></Link>
                 </div>
             </div>
         </div>
