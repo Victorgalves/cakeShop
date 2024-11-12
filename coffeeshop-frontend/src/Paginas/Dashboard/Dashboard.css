@@ -1,18 +1,10 @@
+/* Dashboard.css */
+
 .dashboard-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow-y: scroll; /* Permite rolagem vertical */
-}
-
-/* Oculta a barra de rolagem sem desabilitar a rolagem */
-.dashboard-container::-webkit-scrollbar {
-    width: 0px; /* Não mostra a barra de rolagem */
-    background: transparent; /* Torna o fundo da barra de rolagem invisível */
-}
-
-.dashboard-container::-webkit-scrollbar-thumb {
-    background: transparent; /* Torna o thumb invisível */
+    overflow-y: scroll;
 }
 
 .dashboard-content {
@@ -23,17 +15,7 @@
     padding: 40px;
     box-sizing: border-box;
     flex-grow: 1;
-    overflow-y: scroll; /* Permite rolagem vertical */
-}
-
-/* Oculta a barra de rolagem na .dashboard-content */
-.dashboard-content::-webkit-scrollbar {
-    width: 0px; /* Não mostra a barra de rolagem */
-    background: transparent; /* Torna o fundo da barra de rolagem invisível */
-}
-
-.dashboard-content::-webkit-scrollbar-thumb {
-    background: transparent; /* Torna o thumb invisível */
+    overflow-y: scroll;
 }
 
 h2 {
@@ -63,41 +45,10 @@ h2 {
 }
 
 .chart-container {
-    width: 48%; /* Garantir que os gráficos fiquem lado a lado */
+    width: 48%;
     height: 400px;
 }
 
-.dashboard-card {
-    background-color: #f9f9f9;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.dashboard-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #2C3E50;
-}
-
-.dashboard-card p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #34495E;
-}
-
-.dashboard-card small {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
-}
-
-/* Responsividade */
 @media (max-width: 768px) {
     .dashboard-content {
         padding: 20px;
@@ -115,4 +66,13 @@ h2 {
     .chart-container {
         width: 100%;
     }
+}
+/* Dashboard.css */
+
+/* Estilo para o botão de voltar */
+.back-button-container {
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    z-index: 1000;
 }

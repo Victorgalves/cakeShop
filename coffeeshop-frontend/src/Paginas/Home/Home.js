@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from "../../components/Card/Card";
+import CardMenu from "../../components/CardMenu/CardMenu";
 import Menu from "../../components/Menu/Menu";
 import { Link } from "react-router-dom";
 import "./Home.css";
@@ -15,12 +15,12 @@ const Home = () => {
                     <h2>Olá, {nome}! </h2>
                 </div>
                 <div className="home-cards">
-                    <Link to="/clients"><Card title="Clientes" /></Link>
-                    <Card title="Pedidos" />
-                    <Card title="Funcionários" />
-                    <Link to="/dashboard"><Card title="Dashboard" /></Link>
-                    <Card title="Produção" />
-                    <Card title="Estoque" />
+                    <Link to="/clients"><CardMenu title="Clientes" /></Link>
+                    <CardMenu title="Pedidos" />
+                    <CardMenu title="Funcionários" />
+                    <Link to="/dashboard"><CardMenu title="Dashboard" /></Link>
+                    <CardMenu title="Produção" />
+                    <CardMenu title="Produtos" />
                 </div>
             </div>
         </div>

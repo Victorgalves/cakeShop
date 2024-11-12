@@ -1,37 +1,32 @@
-.card {
-    background-color: #fff;
-    border-radius: 10px;
+/* Card.css */
+
+.dashboard-card {
+    background-color: #f9f9f9;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;
     text-align: center;
-    flex: 1;
-    min-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.card p {
+.card-title {
     font-size: 1.2rem;
-    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 8px;
 }
 
-.card small {
-    display: block;
-    margin-top: 10px;
+.card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1a73e8;
+    margin: 10px 0;
+}
+
+.card-description {
     font-size: 0.9rem;
     color: #555;
+    margin-top: 10px;
 }
-
-
-/* src/components/Dashboard/Dashboard.css */
-.chart {
-    margin-top: 40px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-

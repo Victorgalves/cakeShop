@@ -1,13 +1,14 @@
+// Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { getDashboardData } from '../../services/DashboardService';
 import Card from '../../components/Card/Card';
 import Menu from '../../components/Menu/Menu';
 import SalesChart from '../../components/SalesChart/SalesChart';
+import BackButton from '../../components/BackButton/BackButton';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import './Dashboard.css';
 
-// Registro do Chart.js para usar os componentes necessários
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
@@ -33,7 +34,6 @@ const Dashboard = () => {
     const salesData = dashboardData.salesData;
     const productsSoldLast30Days = dashboardData.productsSoldLast30Days;
 
-    // Dados para o gráfico de barras (Produtos Vendidos)
     const productNames = productsSoldLast30Days.map(product => product.name);
     const productSales = productsSoldLast30Days.map(product => product.totalSales);
 
@@ -64,6 +64,9 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <Menu />
             <div className="dashboard-content">
+                <div className="back-button-container">
+                    <BackButton to="/home" /> {/* Botão de Voltar para a página Home */}
+                </div>
                 <h2>Dashboard</h2>
                 <div className="dashboard-cards">
                     <Card title="Total de Clientes" value={dashboardData.totalClients} />
@@ -79,7 +82,6 @@ const Dashboard = () => {
                         value={dashboardData.topClient.name}
                         description={`Compras: ${dashboardData.topClient.totalPurchases}`}
                     />
-                    {/* Novo card para o NPS */}
                     <Card
                         title="Média de Avaliações (NPS)"
                         value={dashboardData.averageRating ? dashboardData.averageRating.toFixed(1) : 'N/A'}

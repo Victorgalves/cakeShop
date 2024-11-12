@@ -1,12 +1,13 @@
+// Card.js
 import React from 'react';
-import './Card.css'; // Adicione um CSS básico para estilizar o card
+import './Card.css';
 
 const Card = ({ title, value, description }) => {
     return (
-        <div className="card">
-            <h3>{title}</h3>
-            <p>{value}</p>
-            {description && <small>{description}</small>}
+        <div className="dashboard-card">
+            <h3 className="card-title">{title}</h3>
+            <p className="card-value">{value}</p>
+            {description && <small className="card-description">{description}</small>}
         </div>
     );
 };
