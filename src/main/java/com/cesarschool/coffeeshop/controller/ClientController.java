@@ -68,7 +68,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable String cpf) {
+    public ResponseEntity<String> deleteClient(@PathVariable String cpf) {
         if (!ClientRepository.existsByCpf(cpf)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CPF não encontrado!");
         }

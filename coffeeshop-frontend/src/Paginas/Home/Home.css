@@ -13,23 +13,34 @@
     padding-left: 20px;
 }
 
+.welcome-message {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
 .home-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: space-between;
 }
 
 .home-cards .card {
-    width: calc(33.33% - 20px);
+    flex: 1 1 calc(33.33% - 20px);  /* Ajusta a largura dos cards para serem 33.33% do contêiner */
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 250px;  /* Evita que o card fique muito pequeno */
+    box-sizing: border-box;
 }
 
-
+/* Responsividade */
 @media (max-width: 768px) {
-    .dashboard-cards .card {
-        width: 100%;
+    .home-cards .card {
+        flex: 1 1 100%;  /* No mobile, os cards ocupam toda a largura */
     }
 }

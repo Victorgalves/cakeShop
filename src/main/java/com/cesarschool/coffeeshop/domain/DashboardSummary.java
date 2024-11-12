@@ -15,9 +15,12 @@ public class DashboardSummary {
     private int totalClients;
     private int totalOrders;
     private double totalRevenue;
+    private double averageTicket;
+    private double averageRating;
     private ProductSummary topSellingProduct;
     private ClientSummary topClient;
     private List<SalesData> salesData;
+    private List<ProductSummary> productsSoldLast30Days;
 
     @Getter
     @Setter

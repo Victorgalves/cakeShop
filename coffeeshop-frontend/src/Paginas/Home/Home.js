@@ -1,4 +1,3 @@
-// src/Paginas/Home/Home.js
 import React from 'react';
 import Card from "../../components/Card/Card";
 import Menu from "../../components/Menu/Menu";
@@ -6,17 +5,22 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
+    const nome = localStorage.getItem('nome') || 'Usuário'; // Recupera o nome do localStorage
+
     return (
         <div className="home-container">
             <Menu />
             <div className="home-content">
+                <div className="welcome-message">
+                    <h2>Olá, {nome}! </h2>
+                </div>
                 <div className="home-cards">
-                    <Card title="Pedidos" />
                     <Link to="/clients"><Card title="Clientes" /></Link>
+                    <Card title="Pedidos" />
                     <Card title="Funcionários" />
-                    <Card title="Estoque" />
-                    <Card title="Produção" />
                     <Link to="/dashboard"><Card title="Dashboard" /></Link>
+                    <Card title="Produção" />
+                    <Card title="Estoque" />
                 </div>
             </div>
         </div>

@@ -27,6 +27,13 @@ public class DashboardRepositoryImp implements DashboardRepository {
         Double totalRevenue = jdbcTemplate.queryForObject("SELECT SUM(preco_unitario * quantidade) FROM ItensPedido", Double.class);
         if (totalRevenue == null) totalRevenue = 0.0;
 
+        // Ticket médio
+        double averageTicket = totalOrders > 0 ? totalRevenue / totalOrders : 0.0;
+
+        // Média de avaliações (NPS)
+        Double averageRating = jdbcTemplate.queryForObject("SELECT AVG(nota) FROM Avaliacao", Double.class);
+        if (averageRating == null) averageRating = 0.0;
+
         // Produto mais vendido
         ProductSummary topSellingProduct = jdbcTemplate.queryForObject(
                 "SELECT p.nome, SUM(i.quantidade) as totalSales " +
@@ -34,6 +41,17 @@ public class DashboardRepositoryImp implements DashboardRepository {
                         "JOIN ItensPedido i ON p.id = i.produto_id " +
                         "GROUP BY p.nome ORDER BY totalSales DESC LIMIT 1",
                 (rs, rowNum) -> new ProductSummary(rs.getString("nome"), rs.getInt("totalSales"))
+        );
+
+        List<ProductSummary> productsSoldLast30Days = jdbcTemplate.query(
+                "SELECT p.nome, SUM(i.quantidade) AS quantidade_vendida " +
+                        "FROM Produtos p " +
+                        "JOIN ItensPedido i ON p.id = i.produto_id " +
+                        "JOIN Pedidos ped ON i.pedido_id = ped.id " +
+                        "WHERE DATE(ped.dataHora) >= CURDATE() - INTERVAL 30 DAY " +
+                        "GROUP BY p.nome " +
+                        "ORDER BY quantidade_vendida DESC",
+                (rs, rowNum) -> new ProductSummary(rs.getString("nome"), rs.getInt("quantidade_vendida"))
         );
 
         // Cliente com mais compras
@@ -57,7 +75,8 @@ public class DashboardRepositoryImp implements DashboardRepository {
         );
 
         // Criar e retornar o objeto DashboardSummary com todos os dados
-        return new DashboardSummary(totalClients, totalOrders, totalRevenue, topSellingProduct, topClient, salesData);
+        return new DashboardSummary(totalClients, totalOrders, totalRevenue, averageTicket, averageRating, topSellingProduct , topClient, salesData, productsSoldLast30Days);
     }
+
 
 }
