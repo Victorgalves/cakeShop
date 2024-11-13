@@ -33,7 +33,7 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        String sql = "SELECT * FROM Produtos";
+        String sql = "SELECT * FROM Produtos WHERE status= 'Ativo'";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Product produto = new Product();
             produto.setId(rs.getInt("id"));
@@ -53,10 +53,27 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public void delete(Integer id) {
-        inventoryRepositoryImp.delete(id);
-        String sql = "DELETE FROM Produtos WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+        // Verificar dependências nas tabelas
+        String checkItensPedidoSql = "SELECT COUNT(*) FROM ItensPedido WHERE produto_id = ?";
+        String checkEstoqueSql = "SELECT COUNT(*) FROM Estoque WHERE produto_id = ?";
+        String checkProducaoPedidoSql = "SELECT COUNT(*) FROM Producao_pedido WHERE produto_id = ?";
+
+        int countItensPedido = jdbcTemplate.queryForObject(checkItensPedidoSql, Integer.class, id);
+        int countEstoque = jdbcTemplate.queryForObject(checkEstoqueSql, Integer.class, id);
+        int countProducaoPedido = jdbcTemplate.queryForObject(checkProducaoPedidoSql, Integer.class, id);
+
+        // Se houver dependências, atualizar o status para 'Inativo'
+        if (countItensPedido > 0 || countEstoque > 0 || countProducaoPedido > 0) {
+            String updateStatusSql = "UPDATE Produtos SET status = 'Inativo' WHERE id = ?";
+            jdbcTemplate.update(updateStatusSql, id);
+            System.out.println("Produto com ID " + id + " marcado como Inativo devido a dependências.");
+        } else {
+            String deleteSql = "DELETE FROM Produtos WHERE id = ?";
+            jdbcTemplate.update(deleteSql, id);
+            System.out.println("Produto com ID " + id + " deletado fisicamente.");
+        }
     }
+
 
     @Override
     public void save(Product product, int initialQuantity) {
