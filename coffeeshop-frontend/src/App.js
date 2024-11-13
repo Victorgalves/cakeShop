@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Paginas/Login/Login';
-import Home from './Paginas/Home/Home';
-import Dashboard from "./Paginas/Dashboard/Dashboard";
-import ClientList from './Paginas/Clients/ClientList';
-import ClientForm from './Paginas/Clients/ClientForm';
+import Login from './Pages/Login/Login';
+import Home from './Pages/Home/Home';
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import ClientList from './Pages/Clients/ClientList';
+import ClientForm from './Pages/Clients/ClientForm';
+import ProductList from './Pages/Product/ProductList';
+import ProductForm from './Pages/Product/ProductForm';
 
 const App = () => {
     return (
@@ -19,6 +21,9 @@ const App = () => {
                 <Route path="/clients" element={<ClientList />} />
                 <Route path="/clients/novo" element={<ClientForm />} />
                 <Route path="/clients/editar/:cpf" element={<ClientForm />} />
+                <Route path="/product" element={<ProductList/>} />
+                <Route path="/products/new" element={<ProductForm />} />
+                <Route path="/products/edit" element={<ProductForm />} />
                 <Route path="*" element={<div>Página não encontrada</div>} />
             </Routes>
         </Router>

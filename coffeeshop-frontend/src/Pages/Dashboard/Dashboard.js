@@ -65,7 +65,7 @@ const Dashboard = () => {
             <Menu />
             <div className="dashboard-content">
                 <div className="back-button-container">
-                    <BackButton to="/home" /> {/* Botão de Voltar para a página Home */}
+                    <BackButton to="/home" />
                 </div>
                 <h2>Dashboard</h2>
                 <div className="dashboard-cards">

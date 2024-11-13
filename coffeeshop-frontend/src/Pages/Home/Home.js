@@ -20,7 +20,7 @@ const Home = () => {
                     <CardMenu title="Funcionários" />
                     <Link to="/dashboard"><CardMenu title="Dashboard" /></Link>
                     <CardMenu title="Produção" />
-                    <CardMenu title="Produtos" />
+                    <Link to="/product"><CardMenu title="Produtos" /></Link>
                 </div>
             </div>
         </div>
