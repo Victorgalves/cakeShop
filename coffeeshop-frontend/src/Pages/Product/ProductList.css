@@ -1,3 +1,4 @@
+/* Container principal */
 .product-list-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -8,7 +9,6 @@
     height: 100vh;
     overflow: hidden;
 }
-
 
 .product-list {
     display: flex;
@@ -89,7 +89,7 @@
     width: 100%;
     margin-bottom: 20px;
     position: relative;
-    z-index: 2; /* Garante que o botão de voltar fique acima de outros elementos */
+    z-index: 2;
 }
 
 .btn-back {
@@ -109,10 +109,17 @@
     background-color: #e0e0e0;
 }
 
+/* Grupo de Botões - Adicionar e Estoque */
+.action-buttons {
+    display: flex;
+    justify-content: space-between; /* Garantir que os botões fiquem distantes */
+    width: 100%; /* Ocupe toda a largura do container */
+    margin-bottom: 20px;
+    gap: 20px; /* Espaço entre os botões */
+}
 
-
+/* Botão de Adicionar Produto */
 .add-product-button {
-    margin-bottom: 30px;
     padding: 10px 20px;
     font-size: 1em;
     font-weight: bold;
@@ -124,19 +131,70 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Hover para Adicionar Produto */
 .add-product-button:hover {
     background-color: #4500b3;
     transform: translateY(-3px);
 }
 
-.product-list-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+/* Botão de Visualizar Estoque */
+.inventory-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+/* Hover para Estoque */
+.inventory-button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.modal-buttons button:first-child {
+    background-color: #ff4d4d; /* Cor de fundo do botão Confirmar */
+    color: white;
+}
+
+.product-list-container {
+    padding: 20px;
+}

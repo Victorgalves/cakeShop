@@ -15,4 +15,5 @@ public class Inventory {
     private int productId;
     private LocalDate date;
     private int quantity;
+    private String productName;
 }

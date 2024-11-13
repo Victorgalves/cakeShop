@@ -26,7 +26,10 @@ public class InventoryRepositoryImp implements InventoryRepository {
 
     @Override
     public List<Inventory> findAll() {
-        String sql = "SELECT * FROM Estoque";
+        String sql = "SELECT e.produto_id, e.quantidade_produto, e.dt_atualizacao, p.nome AS product_name " +
+                "FROM Estoque e " +
+                "JOIN Produtos p ON e.produto_id = p.id"; // Realizando o JOIN com a tabela Produtos
+
         return jdbcTemplate.query(sql, new RowMapper<Inventory>() {
             @Override
             public Inventory mapRow(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
@@ -34,18 +37,45 @@ public class InventoryRepositoryImp implements InventoryRepository {
                 inventory.setProductId(rs.getInt("produto_id"));
                 inventory.setQuantity(rs.getInt("quantidade_produto"));
                 inventory.setDate(rs.getDate("dt_atualizacao").toLocalDate());
+                inventory.setProductName(rs.getString("product_name")); // Mapeando o nome do produto
                 return inventory;
             }
         });
     }
 
+
     @Override
-    public int update(Inventory inventory) {
-        return jdbcTemplate.update(
-                "UPDATE Estoque SET dt_atualizacao = ?, quantidade_produto = ? WHERE produto_id = ?",
-                inventory.getDate(), inventory.getQuantity(), inventory.getProductId()
-        );
+    public int update(Inventory inventory, String action, int quantity) {
+
+        Inventory currentInventory = findById(inventory.getProductId());
+        if (currentInventory == null) {
+            return 0;
+        }
+
+        int currentQuantity = currentInventory.getQuantity();
+        int newQuantity = currentQuantity;
+
+        switch (action) {
+            case "increase":
+                newQuantity = currentQuantity + quantity;
+                break;
+            case "decrease":
+                if (currentQuantity - quantity < 0) {
+                    return 0;
+                }
+                newQuantity = currentQuantity - quantity;
+                break;
+            case "remove":
+                newQuantity = 0;
+                break;
+            default:
+                return 0;
+        }
+
+        String sql = "UPDATE Estoque SET dt_atualizacao = ?, quantidade_produto = ? WHERE produto_id = ?";
+        return jdbcTemplate.update(sql, inventory.getDate(), newQuantity, inventory.getProductId());
     }
+
 
     @Override
     public int delete(Integer productId) {

@@ -1,3 +1,4 @@
+// src/Pages/Product/ProductList.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllProducts, deleteProduct } from '../../services/ProductService';
@@ -7,6 +8,8 @@ import './ProductList.css';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [productToDelete, setProductToDelete] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,8 +22,20 @@ const ProductList = () => {
     };
 
     const handleDeleteProduct = async (id) => {
-        await deleteProduct(id);
-        fetchProducts();
+        setProductToDelete(id);
+        setShowModal(true);
+    };
+
+    const confirmDeleteProduct = async () => {
+        if (productToDelete) {
+            await deleteProduct(productToDelete);
+            fetchProducts();
+        }
+        setShowModal(false);
+    };
+
+    const cancelDeleteProduct = () => {
+        setShowModal(false);
     };
 
     const handleAddProduct = () => {
@@ -31,16 +46,28 @@ const ProductList = () => {
         navigate('/products/edit', { state: { product } });
     };
 
+    const goToInventory = () => {
+        navigate('/inventory');
+    };
+
     return (
         <div className="product-list-container">
-            <Menu /> {/* Adiciona o Menu ao topo da página */}
+            <Menu />
             <div className="back-button-container">
-                <BackButton to="/home" /> {/* Coloca o botão de voltar aqui */}
+                <BackButton to="/home" />
             </div>
             <h2>Produtos</h2>
-            <button className="add-product-button" onClick={handleAddProduct}>
-                Adicionar Novo Produto
-            </button>
+
+            {/* Botões de ações */}
+            <div className="action-buttons">
+                <button className="add-product-button" onClick={handleAddProduct}>
+                    Adicionar Novo Produto
+                </button>
+                <button className="inventory-button" onClick={goToInventory}>
+                    Visualizar Estoque
+                </button>
+            </div>
+
             <div className="product-list">
                 {products.map((product) => (
                     <div className="product-card" key={product.id}>
@@ -54,6 +81,19 @@ const ProductList = () => {
                     </div>
                 ))}
             </div>
+
+            {/* Modal de Confirmação de Exclusão */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Tem certeza que deseja excluir este produto?</h3>
+                        <div className="modal-buttons">
+                            <button onClick={confirmDeleteProduct}>Confirmar</button>
+                            <button onClick={cancelDeleteProduct}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

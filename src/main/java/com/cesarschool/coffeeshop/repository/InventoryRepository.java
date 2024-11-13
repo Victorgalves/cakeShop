@@ -10,6 +10,6 @@ public interface InventoryRepository {
     Inventory findById(Integer id);
     List<Inventory> findAll();
     int save(Inventory inventory);
-    int update(Inventory inventory);
+    int update(Inventory inventory, String action, int quantity);
     int delete(Integer id);
 }

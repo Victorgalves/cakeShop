@@ -9,22 +9,25 @@ import ClientList from './Pages/Clients/ClientList';
 import ClientForm from './Pages/Clients/ClientForm';
 import ProductList from './Pages/Product/ProductList';
 import ProductForm from './Pages/Product/ProductForm';
+import InventoryList from './Pages/Inventory/InventoryList';
 
 const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/clients" element={<ClientList />} />
-                <Route path="/clients/novo" element={<ClientForm />} />
-                <Route path="/clients/editar/:cpf" element={<ClientForm />} />
-                <Route path="/product" element={<ProductList/>} />
-                <Route path="/products/new" element={<ProductForm />} />
-                <Route path="/products/edit" element={<ProductForm />} />
-                <Route path="*" element={<div>Página não encontrada</div>} />
+                <Route path="/" element={<Navigate to="/login"/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/dashboard" element={<Dashboard/>}/>
+                <Route path="/clients" element={<ClientList/>}/>
+                <Route path="/clients/novo" element={<ClientForm/>}/>
+                <Route path="/clients/editar/:cpf" element={<ClientForm/>}/>
+                <Route path="/product" element={<ProductList/>}/>
+                <Route path="/products/new" element={<ProductForm/>}/>
+                <Route path="/products/edit" element={<ProductForm/>}/>
+                <Route path="/inventory" element={<InventoryList />} />
+
+                <Route path="*" element={<div>Página não encontrada</div>}/>
             </Routes>
         </Router>
     );
