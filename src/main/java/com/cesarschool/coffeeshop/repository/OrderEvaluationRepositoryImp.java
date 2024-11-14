@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Repository
@@ -56,5 +57,21 @@ public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
             return orderEvaluation;
         });
     }
+
+    @Override
+    public List<OrderEvaluation> findAll() {
+        String sql = "SELECT * FROM Avaliacao";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            OrderEvaluation orderEvaluation = new OrderEvaluation();
+            orderEvaluation.setDate(rs.getDate("data").toLocalDate());
+            orderEvaluation.setProductRating(rs.getInt("nota"));
+            orderEvaluation.setProductReview(rs.getString("mensagem"));
+            orderEvaluation.setIdOrder(rs.getInt("pedido_id"));
+            orderEvaluation.setClientCpf(rs.getString("cliente_cpf"));
+            return orderEvaluation;
+        });
+    }
+
+
 
 }

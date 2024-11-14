@@ -1,68 +1,43 @@
 package com.cesarschool.coffeeshop.controller;
 
 import com.cesarschool.coffeeshop.domain.OrderEvaluation;
-import com.cesarschool.coffeeshop.repository.OrderEvaluationRepository;
+import com.cesarschool.coffeeshop.service.OrderEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-
 @RequestMapping("/orderEvaluation")
-
 public class OrderEvaluationController {
 
     @Autowired
-    private OrderEvaluationRepository orderEvaluationRepository;
+    private OrderEvaluationService orderEvaluationService;
 
     @PostMapping
     public ResponseEntity<String> addOrderEvaluation(@RequestBody OrderEvaluation orderEvaluation) {
-        orderEvaluationRepository.save(orderEvaluation);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Evaluation added successfully!");
+        return orderEvaluationService.addOrderEvaluation(orderEvaluation);
     }
 
     @GetMapping("/{idOrder}")
-    public ResponseEntity<String> getIdOrderEvaluation(@PathVariable Integer idOrder) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
-
-        if (orderEvaluation == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
-        }
-
-        float nota = orderEvaluation.getProductRating();
-        String mensagem = orderEvaluation.getProductReview();
-        return ResponseEntity.ok(String.format("Rating: %f - Review: %s", nota, mensagem));
+    public ResponseEntity<String> getOrderEvaluationById(@PathVariable Integer idOrder) {
+        return orderEvaluationService.getOrderEvaluationById(idOrder);
     }
 
-
-
     @PutMapping("/{idOrder}")
-    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer idOrder) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
-        if (orderEvaluation == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
-        }
-        orderEvaluation.setDate(orderEvaluation.getDate());
-        orderEvaluation.setProductRating(orderEvaluation.getProductRating());
-        orderEvaluation.setProductReview(orderEvaluation.getProductReview());
-        orderEvaluation.setIdOrder(orderEvaluation.getIdOrder());
-        orderEvaluation.setClientCpf(orderEvaluation.getClientCpf());
-        orderEvaluationRepository.update(orderEvaluation);
-        return ResponseEntity.ok("Evaluation updated");
+    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer idOrder, @RequestBody OrderEvaluation updatedOrderEvaluation) {
+        updatedOrderEvaluation.setIdOrder(idOrder); // Garantir que o idOrder é setado no objeto
+        return orderEvaluationService.updateOrderEvaluation(updatedOrderEvaluation);
     }
 
     @DeleteMapping("/{idOrder}/{clientCpf}")
     public ResponseEntity<String> deleteOrderEvaluation(@PathVariable Integer idOrder, @PathVariable String clientCpf) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
-        if (orderEvaluation == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
-        }
-        orderEvaluationRepository.delete(idOrder, clientCpf);
-        return ResponseEntity.ok("Evaluation deleted.");
+        return orderEvaluationService.deleteOrderEvaluation(idOrder, clientCpf);
     }
 
-
-
+    @GetMapping
+    public ResponseEntity<List<OrderEvaluation>> getAllOrderEvaluations() {
+        return orderEvaluationService.getAllOrderEvaluations();
+    }
 }
-
