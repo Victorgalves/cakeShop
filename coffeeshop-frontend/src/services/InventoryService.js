@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080/inventory';
 export const getAllInventories = async () => {
     try {
         const response = await axios.get(API_URL);
-        return response.data; // Retorna os inventários
+        return response.data;
     } catch (error) {
         console.error('Erro ao buscar inventários:', error);
     }
