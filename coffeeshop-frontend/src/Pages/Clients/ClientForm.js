@@ -24,12 +24,24 @@ const ClientForm = () => {
         if (cpf) {
             // Caso esteja editando, buscar o cliente pelo CPF
             const fetchClient = async () => {
-                const clientData = await getClientByCpf(cpf);
-                setClient(clientData);
+                try {
+                    const clientData = await getClientByCpf(cpf);
+                    setClient(clientData);
+                } catch (error) {
+                    if (error.response && error.response.status === 404) {
+                        // Se o cliente não for encontrado, podemos redirecionar ou exibir uma mensagem
+                        setModalMessage('Cliente não encontrado!');
+                        setShowModal(true);
+                        navigate('/clients');  // Redireciona para a lista de clientes
+                    } else {
+                        setModalMessage('Erro ao carregar cliente.');
+                        setShowModal(true);
+                    }
+                }
             };
             fetchClient();
         }
-    }, [cpf]);
+    }, [cpf, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

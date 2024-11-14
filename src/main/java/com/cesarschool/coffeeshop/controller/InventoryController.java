@@ -17,7 +17,6 @@ public class InventoryController {
     @Autowired
     private InventoryRepository inventoryRepository;
 
-    // Obter quantidade de um produto específico
     @GetMapping("/{id}")
     public ResponseEntity<String> getQuantityById(@PathVariable int id) {
         Inventory inventory = inventoryRepository.findById(id);
@@ -30,7 +29,6 @@ public class InventoryController {
         return ResponseEntity.ok("Quantity: " + quantity);
     }
 
-    // Atualizar quantidade de um produto (aumentar, diminuir ou remover)
     @PutMapping("/{id}/update-quantity")
     public ResponseEntity<String> updateQuantity(@PathVariable int id,
                                                  @RequestParam String action,
@@ -41,13 +39,10 @@ public class InventoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
 
-        // Definir a data atual antes de atualizar
         inventory.setDate(LocalDate.now());
 
-        // Chama o método update do repositório, passando a ação e a quantidade
         int result = inventoryRepository.update(inventory, action, quantity);
 
-        // Verifica se a operação foi bem-sucedida
         if (result == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid action or quantity");
         }
@@ -55,7 +50,6 @@ public class InventoryController {
         return ResponseEntity.ok("Quantity updated successfully");
     }
 
-    // Remover um produto do estoque (ou seja, deletar)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteInventory(@PathVariable int id) {
         Inventory inventory = inventoryRepository.findById(id);
@@ -68,7 +62,6 @@ public class InventoryController {
         return ResponseEntity.ok("Product deleted.");
     }
 
-    // Obter todos os itens do estoque
     @GetMapping
     public ResponseEntity<List<Inventory>> getAllInventories() {
         List<Inventory> inventories = inventoryRepository.findAll();
