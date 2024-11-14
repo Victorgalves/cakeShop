@@ -1,13 +1,11 @@
 package com.cesarschool.coffeeshop.controller;
 
 import com.cesarschool.coffeeshop.domain.Inventory;
-import com.cesarschool.coffeeshop.repository.InventoryRepository;
+import com.cesarschool.coffeeshop.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -15,61 +13,27 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private InventoryRepository inventoryRepository;
+    private InventoryService inventoryService;
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getQuantityById(@PathVariable int id) {
-        Inventory inventory = inventoryRepository.findById(id);
-
-        if (inventory == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Inventory not found");
-        }
-
-        int quantity = inventory.getQuantity();
-        return ResponseEntity.ok("Quantity: " + quantity);
+        return inventoryService.getQuantityById(id);
     }
 
     @PutMapping("/{id}/update-quantity")
     public ResponseEntity<String> updateQuantity(@PathVariable int id,
                                                  @RequestParam String action,
                                                  @RequestParam int quantity) {
-        Inventory inventory = inventoryRepository.findById(id);
-
-        if (inventory == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-        }
-
-        inventory.setDate(LocalDate.now());
-
-        int result = inventoryRepository.update(inventory, action, quantity);
-
-        if (result == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid action or quantity");
-        }
-
-        return ResponseEntity.ok("Quantity updated successfully");
+        return inventoryService.updateQuantity(id, action, quantity);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteInventory(@PathVariable int id) {
-        Inventory inventory = inventoryRepository.findById(id);
-
-        if (inventory == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-        }
-
-        inventoryRepository.delete(id); // Remove o produto do banco de dados
-        return ResponseEntity.ok("Product deleted.");
+        return inventoryService.deleteInventory(id);
     }
 
     @GetMapping
     public ResponseEntity<List<Inventory>> getAllInventories() {
-        List<Inventory> inventories = inventoryRepository.findAll();
-
-        if (inventories.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
-        return ResponseEntity.ok(inventories);
+        return inventoryService.getAllInventories();
     }
 }

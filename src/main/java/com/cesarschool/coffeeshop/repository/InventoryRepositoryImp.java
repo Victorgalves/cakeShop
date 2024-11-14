@@ -37,7 +37,7 @@ public class InventoryRepositoryImp implements InventoryRepository {
                 inventory.setProductId(rs.getInt("produto_id"));
                 inventory.setQuantity(rs.getInt("quantidade_produto"));
                 inventory.setDate(rs.getDate("dt_atualizacao").toLocalDate());
-                inventory.setProductName(rs.getString("product_name")); // Mapeando o nome do produto
+                inventory.setProductName(rs.getString("product_name"));
                 return inventory;
             }
         });
