@@ -1,7 +1,7 @@
 package com.cesarschool.coffeeshop.controller;
 
 import com.cesarschool.coffeeshop.domain.Employee;
-import com.cesarschool.coffeeshop.repository.EmployeeRepository;
+import com.cesarschool.coffeeshop.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,57 +14,57 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @PostMapping
     public ResponseEntity<String> addEmployee(@RequestBody Employee employee) {
-        if (employeeRepository.existsByCpf(employee.getCpf())) {
+        if (employeeService.existsByCpf(employee.getCpf())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já cadastrado!");
         }
-        employeeRepository.save(employee);
+        employeeService.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body("Funcionário criado com sucesso!");
     }
 
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeService.findAll();
         return ResponseEntity.ok(employees);
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<?> getEmployeeByCpf(@PathVariable String cpf) {
-        if (!employeeRepository.existsByCpf(cpf)) {
+        if (!employeeService.existsByCpf(cpf)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CPF não encontrado!");
         }
 
-        Employee employee = employeeRepository.findByCpf(cpf);
+        Employee employee = employeeService.findByCpf(cpf);
         return ResponseEntity.ok(employee);
     }
 
     @PutMapping("/{cpf}")
     public ResponseEntity<String> updateEmployee(@PathVariable String cpf, @RequestBody Employee employee) {
-        if (!employeeRepository.existsByCpf(cpf)) {
+        if (!employeeService.existsByCpf(cpf)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CPF não encontrado!");
         }
-        Employee existingEmployee = employeeRepository.findByCpf(cpf);
 
+        Employee existingEmployee = employeeService.findByCpf(cpf);
         existingEmployee.setName(employee.getName());
         existingEmployee.setSalary(employee.getSalary());
         existingEmployee.setPosition(employee.getPosition());
         existingEmployee.setHiringDate(employee.getHiringDate());
         existingEmployee.setIsManager(employee.getIsManager());
 
-        employeeRepository.update(existingEmployee);
+        employeeService.update(existingEmployee);
         return ResponseEntity.ok("Funcionário atualizado com sucesso!");
     }
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<String> deleteEmployee(@PathVariable String cpf) {
-        if (!employeeRepository.existsByCpf(cpf)) {
+        if (!employeeService.existsByCpf(cpf)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CPF não encontrado!");
         }
-        Employee existingEmployee = employeeRepository.findByCpf(cpf);
-        employeeRepository.delete(cpf);
+
+        employeeService.delete(cpf);
         return ResponseEntity.ok("Funcionário removido com sucesso!");
     }
 }
