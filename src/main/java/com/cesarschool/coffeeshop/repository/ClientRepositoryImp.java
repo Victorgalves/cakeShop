@@ -35,10 +35,7 @@ public  class ClientRepositoryImp implements ClientRepository {
         String checkPedidosSql = "SELECT COUNT(*) FROM Pedidos WHERE cliente_cpf = ?";
         int pedidosCount = jdbcTemplate.queryForObject(checkPedidosSql, Integer.class, cpf);
 
-        String checkAvaliacaoSql = "SELECT COUNT(*) FROM Avaliacao WHERE cliente_cpf = ?";
-        int avaliacaoCount = jdbcTemplate.queryForObject(checkAvaliacaoSql, Integer.class, cpf);
-
-        if (pedidosCount > 0 || avaliacaoCount > 0) {
+        if (pedidosCount  > 0) {
             // Se o cliente tem dependências, atualizar o status para 'Inativo'
             String updateStatusSql = "UPDATE Cliente SET status = 'Inativo' WHERE cpf = ?";
             return jdbcTemplate.update(updateStatusSql, cpf);

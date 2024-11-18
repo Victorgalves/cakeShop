@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// URL base do seu backend
+
 const API_URL = 'http://localhost:8080/inventory';
 
 export const getAllInventories = async () => {

@@ -1,4 +1,3 @@
-/* Estilo para o container dos botões */
 .header-buttons {
     display: flex;
     justify-content: space-between;
@@ -6,7 +5,6 @@
     width: 100%;
 }
 
-/* Estilo para o campo de busca */
 .search-bar {
     width: 300px;
     margin-right: 20px;
@@ -26,7 +24,6 @@
     outline: none;
 }
 
-/* Container geral dos cards de clientes */
 .client-list-container {
     padding: 30px;
     background-color: #fff;
@@ -34,17 +31,17 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     display: flex;
-    flex-direction: column; /* Flex para alinhar o conteúdo de forma adequada */
-    overflow-y: auto; /* Permite rolagem */
-    max-height: 80vh; /* Limita a altura para 80% da altura da tela */
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
-/* Título principal da lista */
+
 .header {
     margin-bottom: 30px;
 }
 
-/* Estilo para o botão */
+
 button {
     padding: 10px 20px;
     font-size: 14px;
@@ -64,16 +61,15 @@ button {
     background-color: #0056b3;
 }
 
-/* Container dos cards de clientes */
 .client-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    flex-grow: 1; /* Faz os cards preencherem o restante do espaço disponível */
+    flex-grow: 1;
 }
 
-/* Cada card de cliente */
+
 .client-card {
     background-color: #fff;
     padding: 20px;
@@ -81,10 +77,10 @@ button {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     overflow: hidden;
-    width: calc(25% - 20px);  /* Garante 4 cartões por linha (25% da largura) */
+    width: calc(25% - 20px);
     min-width: 220px;
     box-sizing: border-box;
-    border: 1px solid #ddd;  /* Adiciona uma borda para limitar os cards */
+    border: 1px solid #ddd;
 }
 
 .client-card:hover {
@@ -141,7 +137,7 @@ button {
     background-color: #c82333;
 }
 
-/* Responsividade para telas menores */
+
 @media (max-width: 1200px) {
     .client-card {
         width: calc(33.33% - 20px);
@@ -160,7 +156,7 @@ button {
     }
 }
 
-/* Modal */
+
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
@@ -188,7 +184,6 @@ button {
     color: #333;
 }
 
-/* Estilo para o botão Voltar */
 .btn-back {
     background-color: #f0f0f0;
     border: none;
