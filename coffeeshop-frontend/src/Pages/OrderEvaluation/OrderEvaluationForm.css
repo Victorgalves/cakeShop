@@ -1,0 +1,233 @@
+.order-evaluation-form-container {
+    padding: 20px;
+    margin-top: 150px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.order-evaluation-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rating-section {
+    text-align: center;
+}
+
+.rating-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.rating-scale {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.rating-button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.rating-button:hover {
+    transform: scale(1.1);
+}
+
+.rating-button.selected {
+    transform: scale(1.2);
+}
+
+/* Cores dinâmicas */
+.rating-red {
+    background: #ff0000;
+    color: #000;
+
+}
+
+.rating-orange {
+    background: #ffa500;
+    color: #000;
+
+}
+
+.rating-yellow {
+    background: #ffff00;
+    color: #000;
+}
+
+.rating-green {
+    background: #00ff00;
+    color: #000;
+
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    min-height: 100px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.submit-button {
+    background:  green;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+.submit-button:hover {
+    background: darkgreen;
+    transform: scale(1.05);
+}
+
+.submit-button:active {
+    transform: scale(0.95);
+}
+
+.order-evaluation-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+}
+
+.order-evaluation-form select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+@media (max-width: 480px) {
+    .order-evaluation-form {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .rating-button {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    /* Estilização do Modal */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.4s ease-out;
+    }
+
+    .modal-content h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #007bff;
+    }
+
+    .modal-content p {
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+
+}

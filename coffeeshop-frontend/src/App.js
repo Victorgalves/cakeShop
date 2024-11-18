@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Pages/Login/Login';
@@ -10,7 +8,8 @@ import ClientForm from './Pages/Clients/ClientForm';
 import ProductList from './Pages/Product/ProductList';
 import ProductForm from './Pages/Product/ProductForm';
 import InventoryList from './Pages/Inventory/InventoryList';
-
+import OrderEvaluationList from './Pages/OrderEvaluation/OrderEvaluationList';
+import OrderEvaluationForm from './Pages/OrderEvaluation/OrderEvaluationForm';
 const App = () => {
     return (
         <Router>
@@ -26,7 +25,8 @@ const App = () => {
                 <Route path="/products/new" element={<ProductForm/>}/>
                 <Route path="/products/edit" element={<ProductForm/>}/>
                 <Route path="/inventory" element={<InventoryList />} />
-
+                <Route path="/orderEvaluations" element={<OrderEvaluationList />} />
+                <Route path="/orderEvaluations/new" element={<OrderEvaluationForm />} />
                 <Route path="*" element={<div>Página não encontrada</div>}/>
             </Routes>
         </Router>

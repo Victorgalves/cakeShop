@@ -38,7 +38,7 @@ function Login() {
                     setShowModal(true);
                     setTimeout(() => {
                         navigate('/home');
-                    }, 2000); // Redireciona após 2 segundos
+                    }, 2000);
                 }
             })
             .catch((error) => {

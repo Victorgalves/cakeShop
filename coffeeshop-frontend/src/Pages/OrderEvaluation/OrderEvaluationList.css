@@ -1,0 +1,105 @@
+.order-evaluation-list-container {
+    padding: 20px;
+    margin-top: 100px
+}
+
+.back-button-container {
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-evaluation-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    max-height: 600px;
+    overflow-y: auto;
+
+.order-evaluation-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.order-evaluation-card h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-evaluation-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+.button-container button {
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #e63946;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 400px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.modal-buttons button:last-child {
+    background-color: #ff4d4f;
+    color: #fff;
+}
+    }
