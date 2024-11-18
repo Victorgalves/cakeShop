@@ -5,55 +5,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Repository
 public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
 
     @Autowired
     private final JdbcTemplate jdbcTemplate;
-    public OrderEvaluationRepositoryImp(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate;}
+
+    public OrderEvaluationRepositoryImp(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public int save(OrderEvaluation orderEvaluation) {
         if (orderEvaluation.getDate() == null) {
-            orderEvaluation.setDate(LocalDate.now());
+            orderEvaluation.setDate(LocalDateTime.now());
         }
-        String sql = "INSERT INTO Avaliacao (id, data, nota, mensagem, pedido_id, cliente_cpf) VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, orderEvaluation.getId(), orderEvaluation.getDate(), orderEvaluation.getProductRating(), orderEvaluation.getProductReview(), orderEvaluation.getIdOrder(), orderEvaluation.getClientCpf()
+        String sql = "INSERT INTO Avaliacao (id, data, nota, mensagem, tipo_avaliacao) VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(
+                sql,
+                orderEvaluation.getId(),
+                orderEvaluation.getDate(),
+                orderEvaluation.getProductRating(),
+                orderEvaluation.getProductReview(),
+                orderEvaluation.getEvaluationType()
         );
     }
-
 
     @Override
     public int update(OrderEvaluation orderEvaluation) {
         return jdbcTemplate.update(
-                "UPDATE Avaliacao SET data = ?, nota = ?, mensagem = ? WHERE produto_id = ? AND cliente_cpf = ?",
-                orderEvaluation.getDate(), orderEvaluation.getProductRating(), orderEvaluation.getProductReview()
+                "UPDATE Avaliacao SET data = ?, nota = ?, mensagem = ?, tipo_avaliacao = ? WHERE id = ?",
+                orderEvaluation.getDate(),
+                orderEvaluation.getProductRating(),
+                orderEvaluation.getProductReview(),
+                orderEvaluation.getEvaluationType(),
+                orderEvaluation.getId()
         );
     }
 
     @Override
-    public int delete(Integer idOrder, String clientCpf) {
+    public int delete(Integer id) {
         return jdbcTemplate.update(
-                "DELETE FROM Avaliacao WHERE pedido_id = ? AND cliente_cpf =?",
-                idOrder, clientCpf
+                "DELETE FROM Avaliacao WHERE id = ?",
+                id
         );
     }
 
     @Override
-    public OrderEvaluation findByOrderId(Integer idOrder) {
-        String sql = "SELECT * FROM Avaliacao WHERE pedido_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{idOrder}, (rs, rowNum) -> {
+    public OrderEvaluation findById(Integer id) {
+        String sql = "SELECT * FROM Avaliacao WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
             OrderEvaluation orderEvaluation = new OrderEvaluation();
-            orderEvaluation.setDate(rs.getDate("data").toLocalDate());
+            orderEvaluation.setId(rs.getInt("id"));
+            orderEvaluation.setDate(rs.getTimestamp("data").toLocalDateTime());
             orderEvaluation.setProductRating(rs.getInt("nota"));
             orderEvaluation.setProductReview(rs.getString("mensagem"));
-            orderEvaluation.setIdOrder(rs.getInt("pedido_id"));
-            orderEvaluation.setClientCpf(rs.getString("cliente_cpf"));
+            orderEvaluation.setEvaluationType(rs.getString("tipo_avaliacao"));
             return orderEvaluation;
         });
     }
@@ -63,15 +73,12 @@ public class OrderEvaluationRepositoryImp implements OrderEvaluationRepository {
         String sql = "SELECT * FROM Avaliacao";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             OrderEvaluation orderEvaluation = new OrderEvaluation();
-            orderEvaluation.setDate(rs.getDate("data").toLocalDate());
+            orderEvaluation.setId(rs.getInt("id"));
+            orderEvaluation.setDate(rs.getTimestamp("data").toLocalDateTime());
             orderEvaluation.setProductRating(rs.getInt("nota"));
             orderEvaluation.setProductReview(rs.getString("mensagem"));
-            orderEvaluation.setIdOrder(rs.getInt("pedido_id"));
-            orderEvaluation.setClientCpf(rs.getString("cliente_cpf"));
+            orderEvaluation.setEvaluationType(rs.getString("tipo_avaliacao"));
             return orderEvaluation;
         });
     }
-
-
-
 }

@@ -4,18 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class OrderEvaluation {
+public class    OrderEvaluation {
     private int id;
-    private LocalDate date;
+    private LocalDateTime date;
     private int productRating;
     private String productReview;
-    private int idOrder;
-    private String clientCpf;
+    private String evaluationType;
 }

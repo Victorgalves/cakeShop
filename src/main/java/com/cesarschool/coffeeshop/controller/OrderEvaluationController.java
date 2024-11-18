@@ -20,20 +20,20 @@ public class OrderEvaluationController {
         return orderEvaluationService.addOrderEvaluation(orderEvaluation);
     }
 
-    @GetMapping("/{idOrder}")
-    public ResponseEntity<String> getOrderEvaluationById(@PathVariable Integer idOrder) {
-        return orderEvaluationService.getOrderEvaluationById(idOrder);
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getOrderEvaluationById(@PathVariable Integer id) {
+        return orderEvaluationService.getOrderEvaluationById(id);
     }
 
-    @PutMapping("/{idOrder}")
-    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer idOrder, @RequestBody OrderEvaluation updatedOrderEvaluation) {
-        updatedOrderEvaluation.setIdOrder(idOrder); // Garantir que o idOrder é setado no objeto
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateOrderEvaluation(@PathVariable Integer id, @RequestBody OrderEvaluation updatedOrderEvaluation) {
+        updatedOrderEvaluation.setId(id);
         return orderEvaluationService.updateOrderEvaluation(updatedOrderEvaluation);
     }
 
-    @DeleteMapping("/{idOrder}/{clientCpf}")
-    public ResponseEntity<String> deleteOrderEvaluation(@PathVariable Integer idOrder, @PathVariable String clientCpf) {
-        return orderEvaluationService.deleteOrderEvaluation(idOrder, clientCpf);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOrderEvaluation(@PathVariable Integer id) {
+        return orderEvaluationService.deleteOrderEvaluation(id);
     }
 
     @GetMapping

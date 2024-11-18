@@ -20,20 +20,18 @@ public class OrderEvaluationService {
         return ResponseEntity.status(HttpStatus.CREATED).body("Evaluation added successfully!");
     }
 
-    public ResponseEntity<String> getOrderEvaluationById(Integer idOrder) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
+    public ResponseEntity<String> getOrderEvaluationById(Integer id) {
+        OrderEvaluation orderEvaluation = orderEvaluationRepository.findById(id);
 
         if (orderEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
         }
 
-        float nota = orderEvaluation.getProductRating();
-        String mensagem = orderEvaluation.getProductReview();
-        return ResponseEntity.ok(String.format("Rating: %f - Review: %s", nota, mensagem));
+        return ResponseEntity.ok(String.format("Rating: %d - Review: %s", orderEvaluation.getProductRating(), orderEvaluation.getProductReview()));
     }
 
     public ResponseEntity<String> updateOrderEvaluation(OrderEvaluation orderEvaluation) {
-        OrderEvaluation existingEvaluation = orderEvaluationRepository.findByOrderId(orderEvaluation.getIdOrder());
+        OrderEvaluation existingEvaluation = orderEvaluationRepository.findById(orderEvaluation.getId());
 
         if (existingEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
@@ -43,14 +41,14 @@ public class OrderEvaluationService {
         return ResponseEntity.ok("Evaluation updated");
     }
 
-    public ResponseEntity<String> deleteOrderEvaluation(Integer idOrder, String clientCpf) {
-        OrderEvaluation orderEvaluation = orderEvaluationRepository.findByOrderId(idOrder);
+    public ResponseEntity<String> deleteOrderEvaluation(Integer id) {
+        OrderEvaluation orderEvaluation = orderEvaluationRepository.findById(id);
 
         if (orderEvaluation == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evaluation not found");
         }
 
-        orderEvaluationRepository.delete(idOrder, clientCpf);
+        orderEvaluationRepository.delete(id);
         return ResponseEntity.ok("Evaluation deleted.");
     }
 
