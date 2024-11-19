@@ -16,10 +16,10 @@ const Home = () => {
                 </div>
                 <div className="home-cards">
                     <Link to="/clients"><CardMenu title="Clientes" /></Link>
-                    <CardMenu title="Pedidos" />
+                    <Link to="/orders"><CardMenu title="Pedidos" /></Link>
                     <CardMenu title="Funcionários" />
                     <Link to="/dashboard"><CardMenu title="Dashboard" /></Link>
-                    <CardMenu title="Produção" />
+                    <Link to ="/production"><CardMenu title="Produção" /></Link>
                     <Link to="/product"><CardMenu title="Produtos" /></Link>
                 </div>
             </div>

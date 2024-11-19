@@ -10,6 +10,11 @@ import ProductForm from './Pages/Product/ProductForm';
 import InventoryList from './Pages/Inventory/InventoryList';
 import OrderEvaluationList from './Pages/OrderEvaluation/OrderEvaluationList';
 import OrderEvaluationForm from './Pages/OrderEvaluation/OrderEvaluationForm';
+import OrderList from "./Pages/Order/OrderList";
+import OrderDetails from "./Pages/Order/OrderDetails";
+import OrderForm from "./Pages/Order/OrderForm";
+import ProductionList from "./Pages/Production/ProductionList";
+
 const App = () => {
     return (
         <Router>
@@ -27,6 +32,10 @@ const App = () => {
                 <Route path="/inventory" element={<InventoryList />} />
                 <Route path="/orderEvaluations" element={<OrderEvaluationList />} />
                 <Route path="/orderEvaluations/new" element={<OrderEvaluationForm />} />
+                <Route path="/orders" element={<OrderList />} />
+                <Route path="/order/new" element={<OrderForm />} />
+                <Route path="/order/view/:orderId" element={<OrderDetails/>}/>
+                <Route path="/production" element={<ProductionList/>}/>
                 <Route path="*" element={<div>Página não encontrada</div>}/>
             </Routes>
         </Router>

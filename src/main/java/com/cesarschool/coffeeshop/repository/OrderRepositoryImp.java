@@ -34,12 +34,26 @@ public class OrderRepositoryImp implements OrderRepository {
     };
 
     @Override
-    public int save(Order order) {
+    public Order save(Order order) {
         if (order.getOrderTime() == null) {
             order.setOrderTime(LocalDateTime.now());
         }
-        String sql = "INSERT INTO Pedidos (id, funcionario_cpf, cliente_cpf, dataHora) VALUES (?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, order.getIdOrder(), order.getEmployeeCpf(),order.getClientCpf(), order.getOrderTime());
+        String sql = "INSERT INTO Pedidos (funcionario_cpf, cliente_cpf, dataHora) VALUES (?, ?, ?)";
+        int rowsAffected = jdbcTemplate.update(sql, order.getEmployeeCpf(), order.getClientCpf(), order.getOrderTime());
+
+        if (rowsAffected > 0) {
+            String getIdSql = "SELECT LAST_INSERT_ID()";
+            Integer id = jdbcTemplate.queryForObject(getIdSql, Integer.class);
+
+            if (id != null) {
+                order.setIdOrder(id);
+                return order;
+            } else {
+                throw new RuntimeException("Não foi possível recuperar o ID do pedido.");
+            }
+        } else {
+            throw new RuntimeException("Falha ao inserir o pedido no banco.");
+        }
     }
 
     @Override
