@@ -26,7 +26,8 @@ public class OrderProductionRepositoryImp implements OrderProductionRepository {
             rs.getObject("dataHora", LocalDateTime.class),
             rs.getString("status"),
             rs.getInt("pedido_id"),
-            rs.getInt("produto_id")
+            rs.getInt("produto_id"),
+            rs.getInt("quantidade")
     );
 
     @Override
@@ -44,10 +45,10 @@ public class OrderProductionRepositoryImp implements OrderProductionRepository {
 
     @Override
     public void save(OrderProduction orderProduction) {
-        String sql = "INSERT INTO Producao_pedido (funcionario_cpf, dataHora, status, pedido_id, produto_id) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Producao_pedido (funcionario_cpf, dataHora, status, pedido_id, produto_id,quantidade) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, orderProduction.getEmployeeCpf(), orderProduction.getProductionTime(),
-                orderProduction.getStatus(), orderProduction.getIdOrder(), orderProduction.getIdProduct());
+                orderProduction.getStatus(), orderProduction.getIdOrder(), orderProduction.getIdProduct(), orderProduction.getQuantity());
     }
 
     @Override

@@ -17,4 +17,5 @@ public class OrderProduction {
     private String status;
     private int idOrder;
     private int idProduct;
+    private int quantity;
 }

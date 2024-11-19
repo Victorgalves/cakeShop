@@ -1,40 +1,57 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/orders';
+const API_URL = 'http://localhost:8080/orderProduction';
 
-export const getAllOrders = async () => {
-    const response = await axios.get(API_URL);
-    return response.data;
+export const getAllOrderProductions = async () => {
+    try {
+        const response = await axios.get(API_URL);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar todas as produções de pedidos:', error);
+        throw error;
+    }
 };
 
-export const getOrderById = async (id) => {
-    const response = await axios.get(`${API_URL}/${id}`);
-    return response.data;
+export const getOrderProductionsByOrderId = async (idOrder) => {
+    try {
+        const response = await axios.get(`${API_URL}/${idOrder}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Erro ao buscar produções do pedido com ID ${idOrder}:`, error);
+        throw error;
+    }
 };
 
-export const createOrder = async (order) => {
-    const response = await axios.post(API_URL, order);
-    return response.data;
+export const createOrderProduction = async (orderProduction) => {
+    try {
+        const response = await axios.post(API_URL, orderProduction);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao criar produção de pedido:', error);
+        throw error;
+    }
 };
 
-export const deleteOrder = async (id) => {
-    const response = await axios.delete(`${API_URL}/${id}`);
-    return response.data;
+export const updateOrderProductionStatusByOrderId = async (idOrder, status) => {
+    try {
+        const response = await axios.put(`${API_URL}/status/${idOrder}`, status, {
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Erro ao atualizar status da produção do pedido com ID ${idOrder}:`, error);
+        throw error;
+    }
 };
 
-export const getOrderItemsByOrderId = async (id) => {
-    const response = await axios.get(`http://localhost:8080/orderItems/${id}`);
-    return response.data;
+export const deleteOrderProduction = async (id) => {
+    try {
+        const response = await axios.delete(`${API_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Erro ao excluir produção de pedido com ID ${id}:`, error);
+        throw error;
+    }
 };
-
-export const getProductById = async (id) => {
-    const response = await axios.get(`http://localhost:8080/product/${id}`);
-    return response.data;
-};
-
-
-export const addOrderItem = async (orderItem) => {
-    const response = await axios.post(`http://localhost:8080/orderItems`, orderItem);
-    return response.data;
-};
-

@@ -18,7 +18,8 @@ const OrderList = () => {
     const fetchOrders = async () => {
         try {
             const data = await getAllOrders();
-            setOrders(data);
+                const sortedOrders = data.sort((a, b) => new Date(b.orderTime) - new Date(a.orderTime));
+            setOrders(sortedOrders);
         } catch (error) {
             console.error('Erro ao carregar os pedidos:', error);
         }

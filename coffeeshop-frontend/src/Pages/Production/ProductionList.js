@@ -1,57 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllOrders, getOrderItemsByOrderId, getProductById } from '../../services/OrderService';
+import { getAllOrderProductions, updateOrderProductionStatusByOrderId } from '../../services/ProductionService';
+import { getProductById } from '../../services/ProductService'; // Supondo que você tenha esse método para buscar o produto
 import Menu from '../../components/Menu/Menu';
 import BackButton from '../../components/BackButton/BackButton';
 import './ProductionList.css';
 
-const ProductionList = () => {
-    const [orders, setOrders] = useState([]);
+const OrderProductionList = () => {
+    const [orderProductions, setOrderProductions] = useState([]);
     const [itemsByOrder, setItemsByOrder] = useState({});
-    const [productDetails, setProductDetails] = useState({});
-    const navigate = useNavigate();
+    const [statusByOrder, setStatusByOrder] = useState({});
+    const [productsById, setProductsById] = useState({}); // Para armazenar os produtos carregados
 
     useEffect(() => {
-        fetchOrders();
+        fetchOrderProductions();
     }, []);
 
-    const fetchOrders = async () => {
+    const fetchOrderProductions = async () => {
         try {
-            const data = await getAllOrders();
-            setOrders(data);
-            data.forEach(order => {
-                fetchOrderItems(order.idOrder);
-            });
-        } catch (error) {
-            console.error('Erro ao carregar os pedidos:', error);
-        }
-    };
+            const data = await getAllOrderProductions();
+            setOrderProductions(data);
 
-    const fetchOrderItems = async (orderId) => {
-        if (!itemsByOrder[orderId]) {
-            try {
-                const items = await getOrderItemsByOrderId(orderId);
-                setItemsByOrder((prevItems) => ({
-                    ...prevItems,
-                    [orderId]: items,
-                }));
-
-                for (let item of items) {
-                    const productData = await getProductById(item.idProduct);
-                    setProductDetails((prevDetails) => ({
-                        ...prevDetails,
-                        [item.idProduct]: productData,
-                    }));
+            const groupedItems = data.reduce((acc, item) => {
+                if (!acc[item.idOrder]) {
+                    acc[item.idOrder] = [];
                 }
-            } catch (error) {
-                console.error('Erro ao carregar os itens do pedido:', error);
-            }
+                acc[item.idOrder].push(item);
+                return acc;
+            }, {});
+            setItemsByOrder(groupedItems);
+
+            // Define o status inicial para cada pedido
+            const initialStatus = data.reduce((acc, item) => {
+                if (!acc[item.idOrder]) {
+                    acc[item.idOrder] = item.status;
+                }
+                return acc;
+            }, {});
+            setStatusByOrder(initialStatus);
+
+            // Carregar todos os produtos com base no idProduct
+            const productIds = [...new Set(data.map(item => item.idProduct))];
+            const products = await Promise.all(productIds.map(id => getProductById(id)));
+            const productMap = products.reduce((acc, product) => {
+                acc[product.id] = product.name; // Armazena o nome do produto pelo id
+                return acc;
+            }, {});
+            setProductsById(productMap);
+        } catch (error) {
+            console.error('Erro ao carregar produções de pedidos:', error);
         }
     };
 
-    const handleAddOrder = () => {
-        console.log('Botão de adicionar clicado');
-        navigate('/order/new');
+    const handleStatusChange = async (idOrder, newStatus) => {
+        try {
+            await updateOrderProductionStatusByOrderId(idOrder, newStatus);
+            setStatusByOrder((prevStatus) => ({
+                ...prevStatus,
+                [idOrder]: newStatus,
+            }));
+        } catch (error) {
+            console.error(`Erro ao atualizar o status do pedido ${idOrder}:`, error);
+        }
     };
 
     return (
@@ -60,46 +69,57 @@ const ProductionList = () => {
             <div className="back-button-container">
                 <BackButton to="/home" />
             </div>
-            <h2>Pedidos</h2>
+            <h2>Produções de Pedidos</h2>
 
             <div className="order-list">
-                {orders.length > 0 ? (
-                    orders.map((order) => (
-                        <div className="order-card" key={order.idOrder}>
-                            <h4>Pedido #{order.idOrder}</h4>
+                {Object.keys(itemsByOrder).length > 0 ? (
+                    Object.keys(itemsByOrder)
+                        .sort((a, b) => b - a)
+                        .map((idOrder) => (
+                            <div className="order-card" key={idOrder}>
+                                <h4>Pedido #{idOrder}</h4>
 
-                            <div className="order-items">
-                                {itemsByOrder[order.idOrder] ? (
+                                <div className="order-items">
                                     <table className="order-items-table">
                                         <thead>
                                         <tr>
-                                            <th>Produto ID</th>
-                                            <th>Nome do Produto</th>
-                                            <th>Quantidade</th>
+                                            <th>ID Produto</th>
+                                            <th>Produto</th>
+                                            <th>Qtd</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {itemsByOrder[order.idOrder].map((item) => (
-                                            <tr key={item.idOrderItems}>
+                                        {itemsByOrder[idOrder].map((item) => (
+                                            <tr key={item.idOrderProduction}>
                                                 <td>{item.idProduct}</td>
-                                                <td>{productDetails[item.idProduct] ? productDetails[item.idProduct].name : 'Carregando...'}</td>
+                                                <td>{productsById[item.idProduct] || 'Produto desconhecido'}</td>
                                                 <td>{item.quantity}</td>
                                             </tr>
                                         ))}
                                         </tbody>
                                     </table>
-                                ) : (
-                                    <p>Carregando itens...</p>
-                                )}
+                                </div>
+
+                                <div className="order-status">
+                                    <label htmlFor={`status-${idOrder}`}>Status:</label>
+                                    <select
+                                        id={`status-${idOrder}`}
+                                        value={statusByOrder[idOrder] || 'Pendente'}
+                                        onChange={(e) => handleStatusChange(idOrder, e.target.value)}
+                                    >
+                                        <option value="Pendente">Pendente</option>
+                                        <option value="Em andamento">Em andamento</option>
+                                        <option value="Concluído">Concluído</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    ))
+                        ))
                 ) : (
-                    <p>Nenhum pedido encontrado.</p>
+                    <p>Nenhuma produção encontrada.</p>
                 )}
             </div>
         </div>
     );
 };
 
-export default ProductionList;
+export default OrderProductionList;

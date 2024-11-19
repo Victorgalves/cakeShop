@@ -1,7 +1,50 @@
-.order-items-table {
+.order-list-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Garante que o container ocupe a altura total da tela */
+    overflow: auto;
+}
+
+.back-button-container {
+    margin-bottom: 15px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Menos espaço entre os cards */
+    justify-content: center;
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+    max-height: 80vh; /* Limita a altura da lista de pedidos */
+    overflow-y: auto; /* Permite rolagem na lista de pedidos */
+    padding: 10px;
+}
+
+.order-card {
+    width: 250px;
+    height: 300px; /* Diminui a altura total do card, deixando mais espaço para a tabela */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+    overflow: hidden; /* Impede que o conteúdo ultrapasse os limites do card */
+}
+
+.order-card h4 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 .order-items {
@@ -9,19 +52,48 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow-y: auto; /* Habilita rolagem vertical */
     width: 100%;
+    max-height: 220px; /* Aumenta o tamanho disponível para a tabela */
+
+}
+
+.order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Garante que a tabela não ultrapasse a largura do card */
 }
 
 .order-items-table th, .order-items-table td {
     padding: 8px;
     border: 1px solid #ddd;
     text-align: center;
-    word-wrap: break-word;
+    word-wrap: break-word; /* Garante que o texto dentro das células não quebre o layout */
 }
 
 .order-items-table th {
     background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.order-card:nth-child(2n) {
+    background-color: #f9f9f9;
+}
+
+.order-status {
+    margin-top: 10px; /* Diminui o espaço do status */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-status label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.order-status select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }

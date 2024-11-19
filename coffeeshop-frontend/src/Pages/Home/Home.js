@@ -21,6 +21,7 @@ const Home = () => {
                     <Link to="/dashboard"><CardMenu title="Dashboard" /></Link>
                     <Link to ="/production"><CardMenu title="Produção" /></Link>
                     <Link to="/product"><CardMenu title="Produtos" /></Link>
+                    <Link to="/orderEvaluations"><CardMenu title="Avaliações" /></Link>
                 </div>
             </div>
         </div>
