@@ -1,6 +1,5 @@
-
 .order-form-container {
-    max-width: 500px;
+    max-width: 600px;
     margin: 40px auto;
     padding: 25px;
     background-color: #ffffff;
@@ -8,12 +7,6 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin-top: 80px;
 }
 
 .order-form-container h2 {
@@ -23,17 +16,20 @@
     margin-bottom: 20px;
 }
 
-.order-form-container form {
+.order-form-group {
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
-.order-form-container input,
-.order-form-container select,
-.order-form-container textarea {
-    margin-top: 12px;
-    padding: 12px;
+.order-form-group label {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.order-form-group input,
+.order-form-group select {
+    padding: 10px;
     font-size: 1em;
     border: 1px solid #d0d0d0;
     border-radius: 5px;
@@ -41,99 +37,45 @@
     transition: border-color 0.3s ease;
 }
 
-.order-form-container input:focus,
-.order-form-container select:focus,
-.order-form-container textarea:focus {
+.order-form-group input:focus,
+.order-form-group select:focus {
     border-color: #4CAF50;
 }
 
-.order-form-container textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.order-form-container button {
-    margin-top: 20px;
-    padding: 12px;
+.order-form-button {
+    padding: 12px 20px;
     background-color: #4CAF50;
     color: white;
     font-size: 1em;
-    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: auto;
-    max-width: 250px;
 }
 
-.order-form-container button:hover {
+.order-form-button:hover {
     background-color: #45a049;
 }
 
-.order-form-container button:active {
-    background-color: #3e8e41;
-}
-
-.order-form-container select {
-    appearance: none;
-    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'><polyline points='10 30 70 90 130 30' fill='none' stroke='%23d0d0d0' stroke-width='15' stroke-linecap='round' /></svg>") no-repeat right 10px center;
-    background-size: 15px;
-    background-color: #fff;
-    padding-right: 30px;
-}
-
-.order-form-container input[type="number"]::-webkit-inner-spin-button,
-.order-form-container input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
-}
-
-.modal-overlay {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    text-align: center;
-    animation: fadeIn 0.3s ease;
-}
-
-.modal h3 {
+.order-form-back-button {
+    display: inline-block;
     margin-bottom: 20px;
-    color: #333;
-}
-
-.modal button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 1em;
     font-weight: bold;
-    transition: background-color 0.3s ease;
 }
 
-.modal button:hover {
-    background-color: #45a049;
+.order-form-back-button:hover {
+    text-decoration: underline;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.order-form-items ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-form-items ul li {
+    margin-bottom: 8px;
+    font-size: 0.9em;
 }

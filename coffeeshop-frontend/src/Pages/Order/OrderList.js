@@ -65,7 +65,7 @@ const OrderList = () => {
         setFilterId(value);
 
         if (value.trim() === '') {
-            setFilteredOrders(orders); // Mostra todos os pedidos se o filtro estiver vazio
+            setFilteredOrders(orders);
         } else {
             const filtered = orders.filter((order) =>
                 order.idOrder.toString().includes(value)

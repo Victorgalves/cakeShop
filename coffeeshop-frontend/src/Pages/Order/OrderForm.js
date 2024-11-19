@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createOrder, addOrderItem } from '../../services/OrderService';
 import { getAllProducts } from "../../services/ProductService";
 import Menu from '../../components/Menu/Menu';
+import BackButton from '../../components/BackButton/BackButton';
 import './OrderForm.css';
 
 const OrderForm = () => {
@@ -14,6 +15,9 @@ const OrderForm = () => {
     const [clientCpf, setClientCpf] = useState('');
     const [orderId, setOrderId] = useState(null);
     const [step, setStep] = useState(1);
+    const [isAnonymous, setIsAnonymous] = useState(false);
+
+    const loggedInCpf = localStorage.getItem('cpf');
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,17 +32,15 @@ const OrderForm = () => {
     }, []);
 
     const handleCreateOrder = async () => {
-        if (!clientCpf || clientCpf.length !== 11) {
+        if (!isAnonymous && (!clientCpf || clientCpf.length !== 11)) {
             alert('CPF inválido!');
             return;
         }
 
-        const orderData = { clientCpf };
+        const orderData = { clientCpf: isAnonymous ? null : clientCpf, employeeCpf: loggedInCpf  };
 
         try {
             const response = await createOrder(orderData);
-
-            console.log('Resposta da criação do pedido:', response);
 
             if (response && response.idOrder) {
                 setOrderId(response.idOrder);
@@ -98,22 +100,33 @@ const OrderForm = () => {
     return (
         <div className="order-form-container">
             <Menu />
-            <h2>{step === 1 ? 'Criar Novo Pedido' : 'Adicionar Itens ao Pedido'}</h2>
+            <BackButton className="order-form-back-button" to="/orders" />
+            <h2>{step === 1 ? 'Criar novo pedido' : 'Adicionar itens ao pedido'}</h2>
 
             {step === 1 && (
                 <>
-                    <div className="form-group">
+                    <div className="order-form-group">
                         <label htmlFor="clientCpf">CPF do Cliente</label>
                         <input
                             type="text"
                             id="clientCpf"
-                            value={clientCpf}
+                            value={isAnonymous ? '' : clientCpf}
                             onChange={(e) => setClientCpf(e.target.value)}
                             placeholder="Digite o CPF do cliente"
+                            disabled={isAnonymous}
                         />
                     </div>
+                    <div className="order-form-group order-form-inline">
+                        <input
+                            type="checkbox"
+                            id="anonymous"
+                            checked={isAnonymous}
+                            onChange={() => setIsAnonymous(!isAnonymous)}
+                        />
+                        <label htmlFor="anonymous">Cliente sem cadastro</label>
+                    </div>
 
-                    <button className="next-step-button" onClick={handleCreateOrder}>
+                    <button className="order-form-button" onClick={handleCreateOrder}>
                         Criar Pedido
                     </button>
                 </>
@@ -121,7 +134,7 @@ const OrderForm = () => {
 
             {step === 2 && (
                 <>
-                    <div className="form-group">
+                    <div className="order-form-group">
                         <label htmlFor="product">Produto</label>
                         <select
                             id="product"
@@ -137,7 +150,7 @@ const OrderForm = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="order-form-group">
                         <label htmlFor="quantity">Quantidade</label>
                         <input
                             type="number"
@@ -148,11 +161,11 @@ const OrderForm = () => {
                         />
                     </div>
 
-                    <button className="add-item-button" onClick={handleAddItemToOrder}>
+                    <button className="order-form-button" onClick={handleAddItemToOrder}>
                         Adicionar Produto ao Pedido
                     </button>
 
-                    <div className="order-items">
+                    <div className="order-form-items">
                         <h3>Itens no Pedido:</h3>
                         {orderItems.length > 0 ? (
                             <ul>
@@ -167,7 +180,7 @@ const OrderForm = () => {
                         )}
                     </div>
 
-                    <button className="finalize-order-button" onClick={handleFinalizeOrder}>
+                    <button className="order-form-button finalize-order-button" onClick={handleFinalizeOrder}>
                         Finalizar Pedido
                     </button>
                 </>
