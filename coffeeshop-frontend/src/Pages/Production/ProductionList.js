@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllOrderProductions, updateOrderProductionStatusByOrderId } from '../../services/ProductionService';
-import { getProductById } from '../../services/ProductService'; // Supondo que você tenha esse método para buscar o produto
+import { getProductById } from '../../services/ProductService';
 import Menu from '../../components/Menu/Menu';
 import BackButton from '../../components/BackButton/BackButton';
 import './ProductionList.css';
@@ -9,7 +9,7 @@ const OrderProductionList = () => {
     const [orderProductions, setOrderProductions] = useState([]);
     const [itemsByOrder, setItemsByOrder] = useState({});
     const [statusByOrder, setStatusByOrder] = useState({});
-    const [productsById, setProductsById] = useState({}); // Para armazenar os produtos carregados
+    const [productsById, setProductsById] = useState({});
 
     useEffect(() => {
         fetchOrderProductions();
@@ -29,7 +29,6 @@ const OrderProductionList = () => {
             }, {});
             setItemsByOrder(groupedItems);
 
-            // Define o status inicial para cada pedido
             const initialStatus = data.reduce((acc, item) => {
                 if (!acc[item.idOrder]) {
                     acc[item.idOrder] = item.status;
@@ -38,11 +37,10 @@ const OrderProductionList = () => {
             }, {});
             setStatusByOrder(initialStatus);
 
-            // Carregar todos os produtos com base no idProduct
             const productIds = [...new Set(data.map(item => item.idProduct))];
             const products = await Promise.all(productIds.map(id => getProductById(id)));
             const productMap = products.reduce((acc, product) => {
-                acc[product.id] = product.name; // Armazena o nome do produto pelo id
+                acc[product.id] = product.name;
                 return acc;
             }, {});
             setProductsById(productMap);

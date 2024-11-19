@@ -148,6 +148,17 @@
     background-color: #0056b3;
 }
 
+.feedback-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -166,8 +177,8 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
     text-align: center;
+    width: 300px;
 }
 
 .modal-buttons {
@@ -177,17 +188,40 @@
 }
 
 .modal-buttons button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    cursor: pointer;
     border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .modal-buttons button:first-child {
-    background-color: #ff4d4d;
+    background-color: #f44336;
     color: white;
 }
 
-.order-list-container {
-    padding: 20px;
+.modal-buttons button:last-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.filter-container {
+    margin: 5px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #6200ea;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
 }

@@ -12,10 +12,14 @@ const OrderDetails = () => {
     const [productDetails, setProductDetails] = useState({});
     const navigate = useNavigate();
 
+    // Cálculo do total
+    const calculateTotal = () => {
+        return orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
-
                 const orderData = await getOrderById(orderId);
                 setOrder(orderData);
 
@@ -68,6 +72,11 @@ const OrderDetails = () => {
                 ))}
                 </tbody>
             </table>
+
+            {/* Exibição do total */}
+            <div className="total-container">
+                <h4>Valor Total do Pedido: R$ {calculateTotal().toFixed(2)}</h4>
+            </div>
         </div>
     );
 };
