@@ -3,29 +3,40 @@ import { useNavigate } from 'react-router-dom';
 import { getAllInventories, deleteInventory, updateInventory } from '../../services/InventoryService';
 import Menu from '../../components/Menu/Menu';
 import BackButton from '../../components/BackButton/BackButton';
-import './InventoryList.css'; // Certifique-se de que o caminho esteja correto
+import './InventoryList.css';
 
 const InventoryList = () => {
     const [inventories, setInventories] = useState([]);
+    const [filteredInventories, setFilteredInventories] = useState([]);
+    const [filter, setFilter] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [productToDelete, setProductToDelete] = useState(null); // Guarda o produto que será excluído
+    const [productToDelete, setProductToDelete] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchInventories();
     }, []);
 
+    useEffect(() => {
+        setFilteredInventories(
+            inventories.filter((inventory) =>
+                inventory.productName.toLowerCase().includes(filter.toLowerCase())
+            )
+        );
+    }, [filter, inventories]);
+
     const fetchInventories = async () => {
         const data = await getAllInventories();
         setInventories(data);
+        setFilteredInventories(data);
     };
 
     const handleDeleteInventory = async () => {
         if (productToDelete) {
             await deleteInventory(productToDelete.productId);
             fetchInventories();
-            setIsModalOpen(false); // Fecha o modal após excluir
-            setProductToDelete(null); // Limpa o produto selecionado
+            setIsModalOpen(false);
+            setProductToDelete(null);
         }
     };
 
@@ -47,13 +58,13 @@ const InventoryList = () => {
     };
 
     const openModal = (product) => {
-        setProductToDelete(product); // Guarda o produto selecionado para exclusão
-        setIsModalOpen(true); // Abre o modal
+        setProductToDelete(product);
+        setIsModalOpen(true);
     };
 
     const closeModal = () => {
-        setIsModalOpen(false); // Fecha o modal
-        setProductToDelete(null); // Limpa o produto selecionado
+        setIsModalOpen(false);
+        setProductToDelete(null);
     };
 
     return (
@@ -63,15 +74,25 @@ const InventoryList = () => {
                 <BackButton to="/product" />
             </div>
             <h2>Estoque</h2>
+
+            <div className="filter-container">
+                <input
+                    type="text"
+                    className="filter-input"
+                    placeholder="Filtrar por nome do produto..."
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                />
+            </div>
+
             <div className="inventory-list">
-                {inventories.map((inventory) => (
+                {filteredInventories.map((inventory) => (
                     <div className="inventory-card" key={inventory.productId}>
                         <p className="product-name">{inventory.productName}</p>
                         <p>ID: {inventory.productId}</p>
                         <p>Quantidade: {inventory.quantity}</p>
                         <p>Data: {inventory.date}</p>
 
-                        {/* Botões de Ação */}
                         <div className="action-buttons">
                             <button className="action-button increase" onClick={() => handleUpdateQuantity(inventory.productId, 'increase')}>
                                 +
@@ -90,7 +111,6 @@ const InventoryList = () => {
                 ))}
             </div>
 
-            {/* Modal de Confirmação de Exclusão */}
             {isModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
