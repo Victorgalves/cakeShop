@@ -12,7 +12,6 @@ export const getOrderById = async (id) => {
     return response.data;
 };
 
-
 export const createOrder = async (orderData) => {
     try {
         const response = await fetch('http://localhost:8080/orders', {
@@ -40,7 +39,6 @@ export const createOrder = async (orderData) => {
     }
 };
 
-
 export const deleteOrder = async (id) => {
     const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
@@ -56,9 +54,23 @@ export const getProductById = async (id) => {
     return response.data;
 };
 
-
 export const addOrderItem = async (orderItem) => {
     const response = await axios.post(`http://localhost:8080/orderItems`, orderItem);
-    return response.data;
+    return response.data;  // Verifique se os dados retornados estão corretos
 };
 
+export const updateOrderItem = async (orderId, itemId, updatedItem) => {
+    try {
+        const response = await axios.put(`http://localhost:8080/orderItems/${orderId}/${itemId}`, updatedItem);
+        return response.data;  // Verifique a resposta para garantir que os dados estão sendo retornados corretamente
+    } catch (error) {
+        console.error('Erro ao atualizar item:', error);
+        throw error;
+    }
+};
+
+
+export const deleteOrderItem = async (idOrderItem) => {
+    const response = await axios.delete(`http://localhost:8080/orderItems/${idOrderItem}`);
+    return response.data;
+};

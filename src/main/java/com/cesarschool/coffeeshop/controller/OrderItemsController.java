@@ -44,15 +44,21 @@ public class OrderItemsController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
     }
 
-    @PutMapping("{orderId}")
-    public ResponseEntity<String> updateOrderItem(@PathVariable("orderId") int orderId, @RequestBody OrderItems orderItem) {
+    @PutMapping("/{orderId}/{itemId}")
+    public ResponseEntity<String> updateOrderItem(
+            @PathVariable("orderId") int orderId,
+            @PathVariable("itemId") int itemId,
+            @RequestBody OrderItems orderItem) {
         orderItem.setOrderId(orderId);
+        orderItem.setIdOrderItems(itemId);  // Garante que o ID do item é passado para a atualização
+
         String result = orderItemsService.updateOrderItem(orderItem);
         if (result.contains("sucesso")) {
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrderItem(@PathVariable int id) {
