@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getClientByCpf, addClient, updateClient } from '../../services/ClientService';
-import Menu from '../../components/Menu/Menu';  // Importando o Menu
+import Menu from '../../components/Menu/Menu'; // Menu importado
 import './ClientForm.css';
 
 const ClientForm = () => {
     const navigate = useNavigate();
-    const { cpf } = useParams();  // Captura o CPF do cliente (para edição)
+    const { cpf } = useParams();
     const [client, setClient] = useState({
         cpf: '',
         name: '',
         email: '',
         phone: '',
+        phone2: '', // Segundo telefone
         street: '',
         district: '',
         number: ''
     });
+    const [showPhone2, setShowPhone2] = useState(false); // Controla visibilidade do Telefone 2
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
     useEffect(() => {
         if (cpf) {
-            // Caso esteja editando, buscar o cliente pelo CPF
             const fetchClient = async () => {
                 try {
                     const clientData = await getClientByCpf(cpf);
                     setClient(clientData);
+                    if (clientData.phone2) setShowPhone2(true); // Mostra Telefone 2 se já estiver preenchido
                 } catch (error) {
-                    if (error.response && error.response.status === 404) {
-                        // Se o cliente não for encontrado, podemos redirecionar ou exibir uma mensagem
-                        setModalMessage('Cliente não encontrado!');
-                        setShowModal(true);
-                        navigate('/clients');  // Redireciona para a lista de clientes
-                    } else {
-                        setModalMessage('Erro ao carregar cliente.');
-                        setShowModal(true);
-                    }
+                    setModalMessage('Erro ao carregar cliente.');
+                    setShowModal(true);
+                    navigate('/clients');
                 }
             };
             fetchClient();
@@ -57,17 +53,14 @@ const ClientForm = () => {
 
         try {
             if (cpf) {
-                // Se existir um CPF (está editando)
-                await updateClient(cpf, client);  // Passando o cpf junto com o objeto client
+                await updateClient(cpf, client);
                 setModalMessage('Cliente atualizado com sucesso!');
             } else {
-                // Se não existir CPF (está criando)
                 await addClient(client);
                 setModalMessage('Cliente criado com sucesso!');
             }
-            setShowModal(true); // Exibe o modal após sucesso
+            setShowModal(true);
         } catch (error) {
-            console.error(error);
             setModalMessage('Erro ao salvar cliente. Tente novamente.');
             setShowModal(true);
         } finally {
@@ -77,21 +70,20 @@ const ClientForm = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        navigate('/clients'); // Redireciona para a lista de clientes após fechar o modal
+        navigate('/clients');
     };
 
     const handleGoBack = () => {
-        navigate('/clients');  // Redireciona para a lista de clientes ao clicar em voltar
+        navigate('/clients');
     };
 
     return (
         <div className="client-form-page">
-            <Menu /> {/* Adicionando o Menu aqui */}
+            <Menu />
             <div className="client-form-container">
-                <button className="btn-back" onClick={handleGoBack}>Voltar</button> {/* Botão de Voltar */}
+                <button className="btn-back" onClick={handleGoBack}>Voltar</button>
                 <h2>{cpf ? 'Editar Cliente' : 'Adicionar Cliente'}</h2>
                 <form onSubmit={handleSubmit} className="client-form">
-                    {/* Campo CPF - Aparece apenas ao adicionar um novo cliente */}
                     {!cpf && (
                         <div className="form-group">
                             <label>CPF:</label>
@@ -115,6 +107,7 @@ const ClientForm = () => {
                             required
                         />
                     </div>
+
                     <div className="form-group">
                         <label>Email:</label>
                         <input
@@ -125,16 +118,39 @@ const ClientForm = () => {
                             required
                         />
                     </div>
+
                     <div className="form-group">
-                        <label>Telefone:</label>
-                        <input
-                            type="text"
-                            name="phone"
-                            value={client.phone}
-                            onChange={handleChange}
-                            required
-                        />
+                        <label>Telefone 1:</label>
+                        <div className="phone-group">
+                            <input
+                                type="text"
+                                name="phone"
+                                value={client.phone}
+                                onChange={handleChange}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="btn-toggle-phone"
+                                onClick={() => setShowPhone2((prev) => !prev)} // Alterna entre mostrar e ocultar
+                            >
+                                {showPhone2 ? '-' : '+'}
+                            </button>
+                        </div>
                     </div>
+
+                    {showPhone2 && (
+                        <div className="form-group">
+                            <label>Telefone 2 (opcional):</label>
+                            <input
+                                type="text"
+                                name="phone2"
+                                value={client.phone2}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    )}
+
                     <div className="form-group">
                         <label>Rua:</label>
                         <input
@@ -145,6 +161,7 @@ const ClientForm = () => {
                             required
                         />
                     </div>
+
                     <div className="form-group">
                         <label>Bairro:</label>
                         <input
@@ -155,6 +172,7 @@ const ClientForm = () => {
                             required
                         />
                     </div>
+
                     <div className="form-group">
                         <label>Número:</label>
                         <input
@@ -165,6 +183,7 @@ const ClientForm = () => {
                             required
                         />
                     </div>
+
                     <div className="form-group" style={{ width: '100%' }}>
                         <button type="submit" className="btn-primary" disabled={isSubmitting}>
                             {isSubmitting ? 'Salvando...' : (cpf ? 'Atualizar Cliente' : 'Adicionar Cliente')}
@@ -172,7 +191,6 @@ const ClientForm = () => {
                     </div>
                 </form>
 
-                {/* Modal de Sucesso */}
                 {showModal && (
                     <div className="modal-overlay">
                         <div className="modal-container">
