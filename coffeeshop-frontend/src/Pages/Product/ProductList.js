@@ -1,4 +1,3 @@
-// src/Pages/Product/ProductList.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllProducts, deleteProduct } from '../../services/ProductService';
@@ -8,6 +7,8 @@ import './ProductList.css';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
     const navigate = useNavigate();
@@ -16,9 +17,17 @@ const ProductList = () => {
         fetchProducts();
     }, []);
 
+    useEffect(() => {
+        const filtered = products.filter((product) =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredProducts(filtered);
+    }, [searchTerm, products]);
+
     const fetchProducts = async () => {
         const data = await getAllProducts();
         setProducts(data);
+        setFilteredProducts(data);
     };
 
     const handleDeleteProduct = async (id) => {
@@ -50,6 +59,10 @@ const ProductList = () => {
         navigate('/inventory');
     };
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
     return (
         <div className="product-list-container">
             <Menu />
@@ -58,7 +71,14 @@ const ProductList = () => {
             </div>
             <h2>Produtos</h2>
 
-            {/* Botões de ações */}
+            <input
+                type="text"
+                placeholder="Buscar por nome do produto..."
+                className="search-input"
+                value={searchTerm}
+                onChange={handleSearchChange}
+            />
+
             <div className="action-buttons">
                 <button className="add-product-button" onClick={handleAddProduct}>
                     Adicionar Novo Produto
@@ -69,7 +89,7 @@ const ProductList = () => {
             </div>
 
             <div className="product-list">
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                     <div className="product-card" key={product.id}>
                         <h4>{product.name}</h4>
                         <p>Descrição: {product.description}</p>
@@ -82,7 +102,6 @@ const ProductList = () => {
                 ))}
             </div>
 
-            {/* Modal de Confirmação de Exclusão */}
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
