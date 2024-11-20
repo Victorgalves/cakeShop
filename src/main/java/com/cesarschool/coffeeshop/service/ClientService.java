@@ -44,6 +44,7 @@ public class ClientService {
         existingClient.setStreet(client.getStreet());
         existingClient.setDistrict(client.getDistrict());
         existingClient.setNumber(client.getNumber());
+        existingClient.setPhone2(client.getPhone2());
 
         clientRepository.update(existingClient);
         return "Cliente atualizado com sucesso!";

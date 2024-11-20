@@ -15,7 +15,9 @@ public class Client {
     private String name;
     private String email;
     private String phone;
+    private String phone2;
     private String street;
     private String district;
     private String number;
+
 }
