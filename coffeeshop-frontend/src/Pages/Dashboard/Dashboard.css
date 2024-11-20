@@ -74,3 +74,70 @@ h2 {
     left: 20px;
     z-index: 1000;
 }
+
+.top-employees-section {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.top-employees-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #2C3E50;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.top-employees-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.top-employees-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    background: #f4f4f4;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.top-employees-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.top-employees-list li span.rank {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4e73df;
+    margin-right: 15px;
+}
+
+.top-employees-list li span.name {
+    flex-grow: 1;
+    text-align: left;
+    font-weight: 600;
+    color: #2C3E50;
+}
+
+.top-employees-list li span.orders {
+    font-size: 1.1rem;
+    color: #34495E;
+    font-weight: 500;
+    text-align: right;
+}

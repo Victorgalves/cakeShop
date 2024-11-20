@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -21,6 +21,7 @@ public class DashboardSummary {
     private ClientSummary topClient;
     private List<SalesData> salesData;
     private List<ProductSummary> productsSoldLast30Days;
+    private List<EmployeeSummary> topEmployees;
 
     @Getter
     @Setter
@@ -47,5 +48,14 @@ public class DashboardSummary {
     public static class SalesData {
         private String date;
         private double sales;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmployeeSummary {
+        private String name;
+        private int totalOrders;
     }
 }

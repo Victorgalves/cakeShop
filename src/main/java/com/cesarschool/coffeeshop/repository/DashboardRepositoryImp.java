@@ -43,6 +43,7 @@ public class DashboardRepositoryImp implements DashboardRepository {
                 (rs, rowNum) -> new ProductSummary(rs.getString("nome"), rs.getInt("totalSales"))
         );
 
+        // Produtos vendidos nos últimos 30 dias
         List<ProductSummary> productsSoldLast30Days = jdbcTemplate.query(
                 "SELECT p.nome, SUM(i.quantidade) AS quantidade_vendida " +
                         "FROM Produtos p " +
@@ -63,7 +64,21 @@ public class DashboardRepositoryImp implements DashboardRepository {
                 (rs, rowNum) -> new ClientSummary(rs.getString("nome"), rs.getInt("totalPurchases"))
         );
 
-        // Obter salesData (últimos 30 dias de vendas)
+        // Funcionários com mais pedidos
+        List<DashboardSummary.EmployeeSummary> topEmployees = jdbcTemplate.query(
+                "SELECT f.nome, total_pedidos " +
+                        "FROM ( " +
+                        "    SELECT funcionario_cpf, COUNT(*) AS total_pedidos " +
+                        "    FROM Pedidos " +
+                        "    GROUP BY funcionario_cpf " +
+                        ") AS subquery " +
+                        "JOIN Funcionario f ON subquery.funcionario_cpf = f.cpf " +
+                        "ORDER BY total_pedidos DESC " +
+                        "LIMIT 3",
+                (rs, rowNum) -> new DashboardSummary.EmployeeSummary(rs.getString("nome"), rs.getInt("total_pedidos"))
+        );
+
+        // Dados de vendas dos últimos 30 dias
         List<DashboardSummary.SalesData> salesData = jdbcTemplate.query(
                 "SELECT DATE(p.dataHora) as date, SUM(i.preco_unitario * i.quantidade) as sales " +
                         "FROM Pedidos p " +
@@ -74,9 +89,18 @@ public class DashboardRepositoryImp implements DashboardRepository {
                 (rs, rowNum) -> new DashboardSummary.SalesData(rs.getString("date"), rs.getDouble("sales"))
         );
 
-        // Criar e retornar o objeto DashboardSummary com todos os dados
-        return new DashboardSummary(totalClients, totalOrders, totalRevenue, averageTicket, averageRating, topSellingProduct , topClient, salesData, productsSoldLast30Days);
+        // Retorna o objeto DashboardSummary com todos os dados
+        return new DashboardSummary(
+                totalClients,
+                totalOrders,
+                totalRevenue,
+                averageTicket,
+                averageRating,
+                topSellingProduct,
+                topClient,
+                salesData,
+                productsSoldLast30Days,
+                topEmployees
+        );
     }
-
-
 }

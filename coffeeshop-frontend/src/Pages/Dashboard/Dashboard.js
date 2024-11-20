@@ -1,4 +1,3 @@
-// Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { getDashboardData } from '../../services/DashboardService';
 import Card from '../../components/Card/Card';
@@ -33,6 +32,7 @@ const Dashboard = () => {
 
     const salesData = dashboardData.salesData;
     const productsSoldLast30Days = dashboardData.productsSoldLast30Days;
+    const topEmployees = dashboardData.topEmployees;
 
     const productNames = productsSoldLast30Days.map(product => product.name);
     const productSales = productsSoldLast30Days.map(product => product.totalSales);
@@ -88,16 +88,29 @@ const Dashboard = () => {
                     />
                 </div>
 
+                <div className="top-employees-section">
+                    <h3>Top 3 Funcionários com Mais Pedidos</h3>
+                    <ul className="top-employees-list">
+                        {topEmployees.map((employee, index) => (
+                            <li key={index}>
+                                <span className="rank">#{index + 1}</span>
+                                <span className="name">{employee.name}</span>
+                                <span className="orders">{employee.totalOrders} pedidos</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <div className="dashboard-charts">
                     <div className="chart-container">
-                        <SalesChart salesData={salesData} />
+                        <SalesChart salesData={salesData}/>
                     </div>
                     <div className="chart-container">
-                        <Bar data={productChartData} options={productChartOptions} />
+                        <Bar data={productChartData} options={productChartOptions}/>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 };
 
