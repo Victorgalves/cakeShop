@@ -24,7 +24,7 @@
     outline: none;
 }
 
-.client-list-container {
+.employee-list-container {
     padding: 30px;
     background-color: #fff;
     border-radius: 10px;
@@ -61,7 +61,7 @@ button {
     background-color: #0056b3;
 }
 
-.client-cards {
+.employee-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -70,7 +70,7 @@ button {
 }
 
 
-.client-card {
+.employee-card {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -83,34 +83,34 @@ button {
     border: 1px solid #ddd;
 }
 
-.client-card:hover {
+.employee-card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.client-card h3 {
+.employee-card h3 {
     font-size: 20px;
     color: #007bff;
     margin-bottom: 10px;
 }
 
-.client-card p {
+.employee-card p {
     font-size: 14px;
     color: #555;
     margin-bottom: 8px;
 }
 
-.client-card .client-details {
+.employee-card .employee-details {
     font-size: 14px;
     color: #666;
 }
 
-.client-card .actions {
+.employee-card .actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.client-card button {
+.employee-card button {
     padding: 8px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -139,19 +139,19 @@ button {
 
 
 @media (max-width: 1200px) {
-    .client-card {
+    .employee-card {
         width: calc(33.33% - 20px);
     }
 }
 
 @media (max-width: 768px) {
-    .client-card {
+    .employee-card {
         width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
-    .client-card {
+    .employee-card {
         width: 100%;
     }
 }
@@ -199,5 +199,3 @@ button {
 .btn-back:hover {
     background-color: #ddd;
 }
-
-

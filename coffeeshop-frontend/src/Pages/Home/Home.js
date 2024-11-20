@@ -17,7 +17,7 @@ const Home = () => {
                 <div className="home-cards">
                     <Link to="/clients"><CardMenu title="Clientes" /></Link>
                     <Link to="/orders"><CardMenu title="Pedidos" /></Link>
-                    <CardMenu title="Funcionários" />
+                    <Link to="/employees"><CardMenu title="Funcionários" /></Link>
                     <Link to="/dashboard"><CardMenu title="Dashboard" /></Link>
                     <Link to ="/production"><CardMenu title="Produção" /></Link>
                     <Link to="/product"><CardMenu title="Produtos" /></Link>

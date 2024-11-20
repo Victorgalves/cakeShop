@@ -14,6 +14,8 @@ import OrderList from "./Pages/Order/OrderList";
 import OrderDetails from "./Pages/Order/OrderDetails";
 import OrderForm from "./Pages/Order/OrderForm";
 import ProductionList from "./Pages/Production/ProductionList";
+import EmployeeList from "./Pages/Employees/EmployeeList";
+import EmployeeForm from "./Pages/Employees/EmployeeForm";
 
 const App = () => {
     return (
@@ -36,6 +38,9 @@ const App = () => {
                 <Route path="/order/new" element={<OrderForm />} />
                 <Route path="/order/view/:orderId" element={<OrderDetails/>}/>
                 <Route path="/production" element={<ProductionList/>}/>
+                <Route path="/employees" element={<EmployeeList />} />
+                <Route path="/employees/novo" element={<EmployeeForm />} />
+                <Route path="/employees/editar/:cpf" element={<EmployeeForm />} />
                 <Route path="*" element={<div>Página não encontrada</div>}/>
             </Routes>
         </Router>

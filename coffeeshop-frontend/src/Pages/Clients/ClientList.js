@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllClients, deleteClient } from '../../services/ClientService';
-import Modal from 'react-modal';
-import './ClientList.css';
 import Menu from "../../components/Menu/Menu";
-
-Modal.setAppElement('#root');
+import './ClientList.css';
 
 const ClientList = () => {
     const [clients, setClients] = useState([]);
     const [filter, setFilter] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalMessage, setModalMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [clientToDelete, setClientToDelete] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,20 +25,26 @@ const ClientList = () => {
         client.name.toLowerCase().includes(filter.toLowerCase())
     );
 
-    const handleDelete = async (cpf) => {
-        try {
-            await deleteClient(cpf);
-            setClients(clients.filter(client => client.cpf !== cpf));  // Remove o cliente da lista após excluir
-            setModalMessage('Cliente excluído com sucesso!');
-            setIsModalOpen(true);
-        } catch (error) {
-            setModalMessage('Não é possível excluir o cliente com pedido associado.');
-            setIsModalOpen(true);
-        }
+    const handleDelete = (cpf) => {
+        setClientToDelete(cpf);
+        setShowModal(true);
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const confirmDelete = async () => {
+        if (clientToDelete) {
+            try {
+                await deleteClient(clientToDelete);
+                setClients(clients.filter(client => client.cpf !== clientToDelete));
+            } catch (error) {
+            }
+        }
+        setShowModal(false);
+        setClientToDelete(null);
+    };
+
+    const cancelDelete = () => {
+        setShowModal(false);
+        setClientToDelete(null);
     };
 
     const handleGoHome = () => {
@@ -50,17 +53,17 @@ const ClientList = () => {
 
     return (
         <div className="client-list-page">
-            <Menu /> {/* Adicionando o componente Menu */}
+            <Menu />
             <div className="client-list-container">
                 <div className="header">
                     <div className="header-buttons">
-                        <button className="btn-back" onClick={handleGoHome}>Voltar</button> {/* Botão de Voltar para Home */}
+                        <button className="btn-back" onClick={handleGoHome}>Voltar</button>
                         <div className="search-bar">
                             <input
                                 type="text"
                                 placeholder="Filtrar por nome"
                                 value={filter}
-                                onChange={(e) => setFilter(e.target.value)}  // Atualiza o filtro
+                                onChange={(e) => setFilter(e.target.value)}
                             />
                         </div>
                         <Link to="/clients/novo">
@@ -86,13 +89,17 @@ const ClientList = () => {
                     ))}
                 </div>
 
-                {/* Modal de confirmação */}
-                <Modal isOpen={isModalOpen} onRequestClose={closeModal} className="modal" overlayClassName="overlay">
-                    <div className="modal-content">
-                        <p>{modalMessage}</p>
-                        <button onClick={closeModal} className="btn-primary">Fechar</button>
+                {showModal && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h3>Tem certeza que deseja excluir este cliente?</h3>
+                            <div className="modal-buttons">
+                                <button onClick={confirmDelete}>Confirmar</button>
+                                <button onClick={cancelDelete}>Cancelar</button>
+                            </div>
+                        </div>
                     </div>
-                </Modal>
+                )}
             </div>
         </div>
     );

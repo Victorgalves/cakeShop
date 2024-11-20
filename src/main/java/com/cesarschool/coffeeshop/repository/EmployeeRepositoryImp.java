@@ -61,7 +61,8 @@ public class EmployeeRepositoryImp implements EmployeeRepository {
 
     @Override
     public int delete(String cpf) {
-        return jdbcTemplate.update("DELETE FROM Funcionario WHERE cpf = ?", cpf);
+        String updateStatusSql = "UPDATE Funcionario SET status = 'Inativo' WHERE cpf = ?";
+        return jdbcTemplate.update(updateStatusSql, cpf);
     }
 
     public boolean existsByCpf(String cpf) {
