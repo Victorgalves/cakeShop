@@ -1,6 +1,7 @@
 package com.cesarschool.coffeeshop.repository;
 
 import com.cesarschool.coffeeshop.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,13 +10,9 @@ import java.util.List;
 @Repository
 public class ProductRepositoryImp implements ProductRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final InventoryRepositoryImp inventoryRepositoryImp;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public ProductRepositoryImp(JdbcTemplate jdbcTemplate, InventoryRepositoryImp inventoryRepositoryImp) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.inventoryRepositoryImp = inventoryRepositoryImp;
-    }
 
     @Override
     public Product findById(Integer id) {
@@ -76,15 +73,9 @@ public class ProductRepositoryImp implements ProductRepository {
 
 
     @Override
-    public void save(Product product, int initialQuantity) {
+    public void save(Product product) {
         String insertProductSql = "INSERT INTO Produtos (nome, preco, categoria, descricao) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertProductSql, product.getName(), product.getPrice(), product.getCategory(), product.getDescription());
-
-        Integer productId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-
-        String insertInventorySql = "INSERT INTO Estoque (produto_id, dt_atualizacao, quantidade_produto) VALUES (?, CURDATE(), ?)";
-        jdbcTemplate.update(insertInventorySql, productId, initialQuantity);
-
-
     }
+
 }

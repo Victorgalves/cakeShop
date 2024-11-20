@@ -41,7 +41,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome e preço são obrigatórios!");
         }
         int initialQuantity = 0;
-        productService.addProduct(product, initialQuantity);
+        productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto criado com sucesso!");
     }
 
