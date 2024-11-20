@@ -15,7 +15,9 @@ const OrderEvaluationList = () => {
 
     const fetchEvaluations = async () => {
         const data = await getAllOrderEvaluations();
-        setEvaluations(data);
+        // Ordena as avaliações do mais recente para o mais antigo
+        const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setEvaluations(sortedData);
     };
 
     const handleDeleteEvaluation = (id) => {

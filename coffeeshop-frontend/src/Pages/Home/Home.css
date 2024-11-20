@@ -1,4 +1,4 @@
-
+/* Container principal da Home */
 .home-container {
     display: flex;
     justify-content: flex-start;
@@ -15,7 +15,7 @@
     padding-left: 20px;
 }
 
-
+/* Boas-vindas */
 .welcome-message {
     margin-bottom: 20px;
     text-align: center;
@@ -24,47 +24,7 @@
     color: #333;
 }
 
-.home-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-evenly;
-    width: 100%;
-}
-
-.home-cards .card {
-    flex: 1 1 calc(33.33% - 20px);
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    min-width: 250px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease;
-}
-
-
-@media (max-width: 1024px) {
-    .home-cards .card {
-        flex: 1 1 calc(50% - 20px);
-    }
-}
-
-@media (max-width: 768px) {
-    .home-cards .card {
-        flex: 1 1 calc(100% - 20px);
-    }
-}
-
-.home-container a {
-    text-decoration: none;
-}
-
-.card-disabled {
-    pointer-events: none;
-    opacity: 0.6;
-}
-
+/* Estilização dos cards */
 .home-cards {
     display: flex;
     flex-wrap: wrap;
@@ -74,24 +34,43 @@
     padding-top: 20px;
 }
 
-/* Estilo dos cards */
 .home-cards .card {
-    flex: 1 1 calc(33.33% - 20px);  /* Largura adaptável */
-    background-color: #ffffff;  /* Fundo branco para os cards */
+    flex: 1 1 calc(33.33% - 20px);
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Sombra mais suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     min-width: 250px;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.home-cards .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+/* Links dentro dos cards */
+.home-cards a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #a0312b; /* Cor padrão do texto */
+    font-weight: bold; /* Deixa o texto mais destacado */
+    transition: color 0.3s ease; /* Animação de mudança de cor */
+    font-size: 1.1rem;
 }
 
+.home-cards a:hover {
+    color: #d06156;
+}
+
+/* Texto dentro dos cards */
+.home-cards .card h3 {
+    font-size: 1.5rem;
+    color: inherit; /* Herda a cor do link */
+}
+
+/* Card desabilitado */
+.card-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Responsividade */
 @media (max-width: 1024px) {
     .home-cards .card {
         flex: 1 1 calc(50% - 20px);

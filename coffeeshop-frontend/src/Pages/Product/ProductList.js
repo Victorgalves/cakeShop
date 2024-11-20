@@ -18,16 +18,20 @@ const ProductList = () => {
     }, []);
 
     useEffect(() => {
+        // Aplica o filtro de pesquisa
         const filtered = products.filter((product) =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        setFilteredProducts(filtered);
+        // Aplica a ordenação alfabética no filtro ou nos dados totais
+        setFilteredProducts(filtered.sort((a, b) => a.name.localeCompare(b.name)));
     }, [searchTerm, products]);
 
     const fetchProducts = async () => {
         const data = await getAllProducts();
-        setProducts(data);
-        setFilteredProducts(data);
+        // Ordena os produtos alfabeticamente após a busca
+        const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+        setProducts(sortedData);
+        setFilteredProducts(sortedData);
     };
 
     const handleDeleteProduct = async (id) => {

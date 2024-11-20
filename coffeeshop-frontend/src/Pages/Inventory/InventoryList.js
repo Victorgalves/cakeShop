@@ -18,11 +18,14 @@ const InventoryList = () => {
     }, []);
 
     useEffect(() => {
-        setFilteredInventories(
-            inventories.filter((inventory) =>
-                inventory.productName.toLowerCase().includes(filter.toLowerCase())
-            )
+        const filtered = inventories.filter((inventory) =>
+            inventory.productName.toLowerCase().includes(filter.toLowerCase())
         );
+        // Ordena alfabeticamente pelo nome do produto
+        const sorted = filtered.sort((a, b) =>
+            a.productName.toLowerCase().localeCompare(b.productName.toLowerCase())
+        );
+        setFilteredInventories(sorted);
     }, [filter, inventories]);
 
     const fetchInventories = async () => {

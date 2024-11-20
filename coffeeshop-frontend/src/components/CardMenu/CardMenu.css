@@ -7,6 +7,7 @@
     text-align: center;
     flex: 1;
     min-width: 200px;
+
 }
 
 .card h3 {
@@ -27,11 +28,10 @@
 }
 
 
-/* src/components/Dashboard/Dashboard.css */
 .chart {
     margin-top: 40px;
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-}
+    }
 

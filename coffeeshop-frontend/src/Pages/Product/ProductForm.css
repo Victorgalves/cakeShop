@@ -46,7 +46,7 @@
 .product-form-container input:focus,
 .product-form-container select:focus,
 .product-form-container textarea:focus {
-    border-color: #4CAF50;
+    border-color: #e7796c;
 }
 
 .product-form-container textarea {
@@ -57,7 +57,7 @@
 .product-form-container button {
     margin-top: 20px;
     padding: 12px;
-    background-color: #4CAF50;
+    background-color: #d06156;
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -71,11 +71,11 @@
 }
 
 .product-form-container button:hover {
-    background-color: #45a049;
+    background-color: #e7796c;
 }
 
 .product-form-container button:active {
-    background-color: #3e8e41;
+    background-color: #e7796c;
 }
 
 .product-form-container select {

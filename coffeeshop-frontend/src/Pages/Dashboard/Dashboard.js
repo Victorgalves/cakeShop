@@ -43,8 +43,8 @@ const Dashboard = () => {
             {
                 label: 'Produtos Vendidos',
                 data: productSales,
-                backgroundColor: '#4e73df',
-                borderColor: '#2e59d9',
+                backgroundColor: '#b66e6e',
+                borderColor: '#9c4d4d',
                 borderWidth: 1,
             },
         ],
@@ -89,7 +89,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="top-employees-section">
-                    <h3>Top 3 Funcionários com Mais Pedidos</h3>
+                    <h5>Top Funcionários com mais pedidos</h5>
                     <ul className="top-employees-list">
                         {topEmployees.map((employee, index) => (
                             <li key={index}>
@@ -100,17 +100,17 @@ const Dashboard = () => {
                         ))}
                     </ul>
                 </div>
+
                 <div className="dashboard-charts">
                     <div className="chart-container">
-                        <SalesChart salesData={salesData}/>
+                        <SalesChart salesData={salesData} />
                     </div>
                     <div className="chart-container">
-                        <Bar data={productChartData} options={productChartOptions}/>
+                        <Bar data={productChartData} options={productChartOptions} />
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 

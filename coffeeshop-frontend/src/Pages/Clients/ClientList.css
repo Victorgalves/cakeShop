@@ -20,7 +20,7 @@
 }
 
 .search-bar input:focus {
-    border-color: #007bff;
+    border-color: #b66e6e;
     outline: none;
 }
 
@@ -49,10 +49,12 @@ button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+
+
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #b66e6e;
     color: white;
     font-weight: bold;
 }
@@ -89,7 +91,7 @@ button {
 
 .client-card h3 {
     font-size: 20px;
-    color: #007bff;
+    color: black;
     margin-bottom: 10px;
 }
 

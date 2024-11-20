@@ -98,7 +98,7 @@ const OrderProductionList = () => {
                                     </table>
                                 </div>
 
-                                <div className="order-status">
+                                <div className={`order-status ${statusByOrder[idOrder]?.toLowerCase().replace(' ', '-')}`}>
                                     <label htmlFor={`status-${idOrder}`}>Status:</label>
                                     <select
                                         id={`status-${idOrder}`}
@@ -108,6 +108,7 @@ const OrderProductionList = () => {
                                         <option value="Pendente">Pendente</option>
                                         <option value="Em andamento">Em andamento</option>
                                         <option value="Concluído">Concluído</option>
+                                        <option value="Cancelado">Cancelado</option>
                                     </select>
                                 </div>
                             </div>

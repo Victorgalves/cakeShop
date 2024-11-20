@@ -1,31 +1,37 @@
-/* Dashboard.css */
-
+/* Container principal da Dashboard */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #f6f7fb; /* Cor de fundo mais clara */
     overflow-y: scroll;
 }
 
+/* Conteúdo central da Dashboard */
 .dashboard-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 40px;
+    padding: 40px 20px;
     box-sizing: border-box;
     flex-grow: 1;
     overflow-y: scroll;
+
 }
 
+/* Estilo do título da Dashboard */
 h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 30px;
     text-align: center;
-    color: #2C3E50;
+    color: #e7796c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
+/* Estilos das Cards (informações gerais) */
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -33,8 +39,10 @@ h2 {
     width: 100%;
     max-width: 1200px;
     margin-top: 20px;
+
 }
 
+/* Estilos dos gráficos */
 .dashboard-charts {
     display: flex;
     justify-content: space-between;
@@ -49,6 +57,7 @@ h2 {
     height: 400px;
 }
 
+/* Responsividade para telas menores */
 @media (max-width: 768px) {
     .dashboard-content {
         padding: 20px;
@@ -68,6 +77,7 @@ h2 {
     }
 }
 
+/* Estilo para o botão de voltar */
 .back-button-container {
     position: fixed;
     top: 70px;
@@ -75,33 +85,37 @@ h2 {
     z-index: 1000;
 }
 
+/* Estilo para a seção dos Top Funcionários */
 .top-employees-section {
     margin-top: 40px;
     width: 100%;
     max-width: 1200px;
-    background: linear-gradient(145deg, #ffffff, #e6e6e6);
-    padding: 20px 30px;
+    background: linear-gradient(145deg, #ffffff, #f2f2f2);
+    padding: 25px 35px;
     border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border-left: 5px solid #e7796c;
 }
 
-.top-employees-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #2C3E50;
+/* Título da seção Top Funcionários */
+.top-employees-section h5 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    color: #a0312b;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
+/* Lista de Funcionários */
 .top-employees-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
 }
 
 .top-employees-list li {
@@ -109,35 +123,80 @@ h2 {
     align-items: center;
     justify-content: space-between;
     font-size: 1.2rem;
-    background: #f4f4f4;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #fff8f8;
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #a0312b;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Efeito ao passar o mouse */
 .top-employees-list li:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo do número do ranking */
 .top-employees-list li span.rank {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #4e73df;
+    color: #a0312b;
     margin-right: 15px;
+    background: #f8e4e4;
+    padding: 6px 12px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo do nome do funcionário */
 .top-employees-list li span.name {
     flex-grow: 1;
     text-align: left;
     font-weight: 600;
-    color: #2C3E50;
+    color: #2c3e50;
 }
 
+/* Estilo da quantidade de pedidos */
 .top-employees-list li span.orders {
     font-size: 1.1rem;
-    color: #34495E;
+    color: #34495e;
     font-weight: 500;
     text-align: right;
+}
+
+/* Estilo do card */
+.card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    color: #b66e6e;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card .value {
+    font-size: 2rem;
+    color: #34495e;
+    font-weight: 600;
+}
+
+.card .description {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-top: 10px;
 }

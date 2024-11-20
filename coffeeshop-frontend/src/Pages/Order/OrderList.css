@@ -110,18 +110,18 @@
 
 .action-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Alinha o botão à direita */
     width: 100%;
     margin-bottom: 20px;
-    gap: 20px;
 }
+
 
 .add-order-button {
     padding: 10px 20px;
     font-size: 1em;
     font-weight: bold;
     color: #fff;
-    background-color: #6200ea;
+    background-color: #d06156;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -129,24 +129,12 @@
 }
 
 .add-order-button:hover {
-    background-color: #4500b3;
+    background-color: #e7796c;
     transform: translateY(-3px);
 }
 
-.inventory-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-.inventory-button:hover {
-    background-color: #0056b3;
-}
+
 
 .feedback-message {
     background-color: #d4edda;
@@ -222,6 +210,6 @@
 
 .filter-input:focus {
     outline: none;
-    border-color: #6200ea;
+    border-color: #a0312b;
     box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
 }

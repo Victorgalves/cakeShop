@@ -55,7 +55,6 @@ h2 {
     overflow-y: auto;
     width: 100%;
     max-height: 220px;
-
 }
 
 .order-items-table {
@@ -92,8 +91,33 @@ h2 {
     font-weight: bold;
 }
 
+/* Classes de status */
+.order-status.pendente {
+    background-color: #ffcccc; /* Vermelho claro */
+    color: #a70000; /* Vermelho escuro */
+}
+
+.order-status.em-andamento {
+    background-color: #fff4cc; /* Amarelo claro */
+    color: #a67c00; /* Amarelo escuro */
+}
+
+.order-status.concluído {
+    background-color: #ccffcc; /* Verde claro */
+    color: #006600; /* Verde escuro */
+}
+
+.order-status.cancelado {
+    background-color: #e0e0e0; /* Cinza claro */
+    color: #666666; /* Cinza escuro */
+}
+
+/* Ajuste no select */
 .order-status select {
-    padding: 5px;
+    background-color: transparent;
+    color: inherit;
+    font-weight: bold;
     border: 1px solid #ddd;
+    padding: 5px;
     border-radius: 4px;
 }

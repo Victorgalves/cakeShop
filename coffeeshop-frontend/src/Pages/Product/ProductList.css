@@ -121,7 +121,7 @@
     font-size: 1em;
     font-weight: bold;
     color: #fff;
-    background-color: #6200ea;
+    background-color: #d06156;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -129,12 +129,12 @@
 }
 
 .add-product-button:hover {
-    background-color: #4500b3;
+    background-color: #e7796c;
     transform: translateY(-3px);
 }
 
 .inventory-button {
-    background-color: #007bff;
+    background-color: #ff9181;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -145,7 +145,7 @@
 }
 
 .inventory-button:hover {
-    background-color: #0056b3;
+    background-color: #e7796c;
 }
 
 .modal-overlay {
