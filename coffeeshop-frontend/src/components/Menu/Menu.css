@@ -1,10 +1,9 @@
 /* src/components/Menu/Menu.css */
-
 .navbar {
     display: flex;
-    justify-content: space-between; /* Para título à esquerda e links à direita */
+    justify-content: space-between;
     align-items: center;
-    background-color: #2C3E50;
+    background-color: #b66e6e;
     padding: 10px 50px;
     position: fixed;
     top: 0;
@@ -20,7 +19,7 @@
     margin: 0;
     font-family: 'Arial', sans-serif;
     text-align: left;
-    flex-grow: 1; /* Faz o título crescer e ocupar o espaço disponível */
+    flex-grow: 1;
 }
 
 .navbar-list {

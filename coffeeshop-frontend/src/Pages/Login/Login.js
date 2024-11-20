@@ -33,7 +33,8 @@ function Login() {
                 setCarregando(false);
                 if (data && data.cpf) {
                     localStorage.setItem('cpf', cpf);
-                    localStorage.setItem('nome', data.name); // Armazena o nome
+                    localStorage.setItem('nome', data.name);
+                    localStorage.setItem('isManager', data.isManager);
                     setModalMessage(`Bem-vindo, ${data.name}!`);
                     setShowModal(true);
                     setTimeout(() => {
