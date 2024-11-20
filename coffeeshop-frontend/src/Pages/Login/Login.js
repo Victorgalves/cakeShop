@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import logo from '../../assets/logo.jpeg'; // Importe a logo
 
 function Login() {
     const [cpf, setCpf] = useState('');
@@ -56,6 +57,7 @@ function Login() {
 
     return (
         <div className="login-container">
+            <img src={logo} alt="Logo do Projeto" className="login-logo" /> {/* Exibindo a logo */}
             <h2>Login</h2>
 
             {erro && <p style={{ color: 'red' }}>{erro}</p>}

@@ -1,9 +1,11 @@
-/* src/components/Menu/Menu.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:#a0312b;
+    background-color: #a0312b;
     padding: 10px 50px;
     position: fixed;
     top: 0;
@@ -14,10 +16,10 @@
 }
 
 .navbar-title {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: #ECF0F1;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Great Vibes', cursive;
     text-align: left;
     flex-grow: 1;
 }
@@ -31,7 +33,6 @@
     justify-content: center;
 }
 
-
 .navbar-item a {
     color: #ECF0F1;
     text-decoration: none;
@@ -40,10 +41,9 @@
 }
 
 .navbar-item a:hover {
-    color: #16A085;
+    color: black;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .navbar-list {
         flex-direction: column;
@@ -53,4 +53,17 @@
     .navbar-item {
         margin: 10px 0;
     }
+}
+
+
+.navbar-title-link {
+    text-decoration: none;
+}
+
+.navbar-title-link:hover {
+    opacity: 0.9;
+}
+
+.navbar-item {
+    padding-left: 800px;
 }

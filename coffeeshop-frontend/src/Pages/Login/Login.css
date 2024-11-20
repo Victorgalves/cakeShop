@@ -8,17 +8,13 @@ body, html {
 }
 
 .login-container {
-    width: 100%;
-    max-width: 400px;  /* Ajusta a largura máxima do formulário */
-    padding: 40px;
-    border: 1px solid #ccc;
+    text-align: center;  /* Centraliza o conteúdo */
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .login-container h2 {
@@ -41,7 +37,12 @@ body, html {
     margin-bottom: 5px;
     color: #333;  /* Adicionando um tom mais escuro para o texto */
 }
-
+.login-logo {
+    width: 150px;  /* Ajuste o tamanho conforme necessário */
+    height: auto;  /* Mantém a proporção da imagem */
+    display: block;
+    margin: 0 auto 20px;  /* Centraliza a logo e adiciona um espaço abaixo */
+}
 .login-container input {
     padding: 10px;
     font-size: 14px;

@@ -6,7 +6,9 @@ import './Menu.css';
 const Menu = () => {
     return (
         <nav className="navbar">
-            <h3 className="navbar-title">Coffee Shop Management</h3>
+            <Link to="/home" className="navbar-title-link">
+                <h3 className="navbar-title">Marcella Costa Cake</h3>
+            </Link>
             <ul className="navbar-list">
                 <li className="navbar-item"><Link to="/">Sair</Link></li>
             </ul>
