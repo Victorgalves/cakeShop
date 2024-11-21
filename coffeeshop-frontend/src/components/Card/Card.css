@@ -1,0 +1,32 @@
+/* Card.css */
+
+.dashboard-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #2C3E50;
+    margin-bottom: 8px;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #a0312b;
+    margin: 10px 0;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}

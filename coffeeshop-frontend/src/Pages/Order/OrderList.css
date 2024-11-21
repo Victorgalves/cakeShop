@@ -1,0 +1,215 @@
+.order-list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.order-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    border-radius: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.order-card {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+}
+
+.order-card h4 {
+    font-size: 1.1em;
+    color: #333;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.order-card p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.order-card button {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-card button:first-of-type {
+    background-color: #4CAF50;
+}
+
+.order-card button:last-of-type {
+    background-color: #f44336;
+}
+
+.order-card button:hover {
+    opacity: 0.9;
+}
+
+.order-card .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.back-button-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-back {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.btn-back:hover {
+    background-color: #e0e0e0;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão à direita */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.add-order-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #d06156;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-order-button:hover {
+    background-color: #e7796c;
+    transform: translateY(-3px);
+}
+
+
+
+
+.feedback-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-buttons button:first-child {
+    background-color: #f44336;
+    color: white;
+}
+
+.modal-buttons button:last-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.filter-container {
+    margin: 5px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #a0312b;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+}

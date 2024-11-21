@@ -1,0 +1,69 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a0312b;
+    padding: 10px 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar-title {
+    font-size: 2.5rem;
+    color: #ECF0F1;
+    margin: 0;
+    font-family: 'Great Vibes', cursive;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.navbar-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.navbar-item a {
+    color: #ECF0F1;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .navbar-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-item {
+        margin: 10px 0;
+    }
+}
+
+
+.navbar-title-link {
+    text-decoration: none;
+}
+
+.navbar-title-link:hover {
+    opacity: 0.9;
+}
+
+.navbar-item {
+    padding-left: 800px;
+}
