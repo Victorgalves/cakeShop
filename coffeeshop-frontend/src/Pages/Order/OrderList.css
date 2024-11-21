@@ -110,7 +110,7 @@
 
 .action-buttons {
     display: flex;
-    justify-content: flex-end; /* Alinha o botão à direita */
+    justify-content: flex-end;
     width: 100%;
     margin-bottom: 20px;
 }
