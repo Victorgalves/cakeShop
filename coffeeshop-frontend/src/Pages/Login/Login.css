@@ -8,7 +8,7 @@ body, html {
 }
 
 .login-container {
-    text-align: center;  /* Centraliza o conteúdo */
+    text-align: center;
     padding: 20px;
     max-width: 400px;
     margin: 0 auto;
